@@ -44,6 +44,14 @@
 
         .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(43, 108, 176, 0.3); }
 
+        /* حقل البحث */
+        #searchBox {
+            width: 90%; max-width: 500px; padding: 15px; margin-bottom: 25px;
+            border: 2px solid var(--primary); border-radius: 15px;
+            text-align: center; outline: none; background: white; font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
         .guide-trigger {
             background: var(--gold); color: white; border: none; padding: 12px 25px;
             border-radius: 10px; font-weight: bold; cursor: pointer; margin-bottom: 25px;
@@ -93,6 +101,8 @@
         <button class="tab-btn" onclick="openTab('reading', 'استيعاب المقروء')">📖 استيعاب المقروء</button>
     </div>
 
+    <input type="text" id="searchBox" placeholder="🔍 ابحث في هذا القسم..." onkeyup="searchModels()">
+    <br>
     <button class="guide-trigger" onclick="showGuide()">
         💡 دليل قسم: <span id="guide-btn-text">التناظر اللفظي</span>
     </button>
@@ -150,18 +160,11 @@
 
 <script>
     const guides = {
-        analog: `<h2>🔗 التناظر اللفظي</h2><p><b>الفكرة:</b> إيجاد علاقة تماثل بين زوجين من الكلمات.</p><ul><li><b>مثال:</b> (رئة : تنفس) هي علاقة وظيفة.</li><li>⚠️ انتبه لترتيب العلاقة واتجاهها.</li></ul>`,
-        odd: `<h2>🔍 المفردة والارتباط والاختلاف</h2>
-              <p>هذا القسم يجمع بين مهارات التصنيف والربط الذهني:</p>
-              <ul>
-                <li><b>المفردة الشاذة:</b> البحث عن الكلمة التي تخرج عن التصنيف المشترك لثلاث كلمات أخرى.</li>
-                <li><b>الارتباط:</b> البحث عن الكلمة الأكثر صلة برأس السؤال (ارتباط لزومي أو مكاني).</li>
-                <li><b>الاختلاف:</b> تمييز الفروق الدقيقة بين الخيارات المتشابهة.</li>
-              </ul>
-              <p style="color:var(--primary)">💡 ابحث دائماً عن الرابط الأقوى والمباشر.</p>`,
-        complete: `<h2>📝 إكمال الجمل</h2><p>فهم سياق الجملة ووضع الكلمات المناسبة في الفراغات لاستقامة المعنى.</p>`,
-        error: `<h2>❌ الخطأ السياقي</h2><p>تحديد الكلمة التي أفسدت حقيقة أو حكمة الجملة وغالباً ما تكون عكس الصواب.</p>`,
-        reading: `<h2>📖 استيعاب المقروء</h2><p>تحليل النصوص واستنتاج المعلومات والأفكار منها.</p>`
+        analog: `<h2>🔗 دليل التناظر اللفظي</h2><p>اكتشاف التماثل بين زوجين من الكلمات.</p><ul><li><b>مثال:</b> (رئة : تنفس) علاقة وظيفة.</li><li>⚠️ انتبه لترتيب العلاقة.</li></ul>`,
+        odd: `<h2>🔍 دليل المفردة والارتباط</h2><p>دمج مهارات التصنيف والربط الذهني:</p><ul><li><b>المفردة الشاذة:</b> استخراج الكلمة المختلفة عن البقية.</li><li><b>الارتباط:</b> إيجاد الكلمة الأكثر صلة برأس السؤال.</li></ul>`,
+        complete: `<h2>📝 دليل إكمال الجمل</h2><p>تعبئة الفراغات لتكوين جملة صحيحة منطقياً.</p>`,
+        error: `<h2>❌ دليل الخطأ السياقي</h2><p>تمييز الكلمة التي أفسدت سياق الجملة الصحيح.</p>`,
+        reading: `<h2>📖 دليل استيعاب المقروء</h2><p>تحليل النصوص واستنتاج الأفكار المباشرة وغير المباشرة.</p>`
     };
 
     let currentSection = 'analog';
@@ -175,6 +178,8 @@
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
         document.getElementById('guide-btn-text').innerText = btnText;
+        document.getElementById('searchBox').value = '';
+        searchModels();
     }
 
     function showGuide() {
@@ -183,6 +188,16 @@
     }
 
     function hideGuide() { document.getElementById('guideModal').style.display = "none"; }
+
+    function searchModels() {
+        let input = document.getElementById('searchBox').value.toLowerCase();
+        let activeList = document.querySelector('.model-list.active');
+        let items = activeList.getElementsByTagName('a');
+        for (let i = 0; i < items.length; i++) {
+            let text = items[i].innerText.toLowerCase();
+            items[i].style.display = text.includes(input) ? "flex" : "none";
+        }
+    }
 
     window.onclick = function(event) { if (event.target == document.getElementById('guideModal')) hideGuide(); }
 </script>
