@@ -60,7 +60,7 @@
         .guide-trigger {
             background: var(--gold); color: white; border: none; padding: 12px 25px;
             border-radius: 10px; font-weight: bold; cursor: pointer; margin-bottom: 25px;
-            display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; font-size: 1rem;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
         }
 
         .modal {
@@ -85,14 +85,11 @@
             border-radius: 20px; color: #2d3748; border: 1px solid var(--border-gray);
             display: flex; flex-direction: column; align-items: center; gap: 12px; transition: 0.3s;
         }
-        .btn:hover { border-color: var(--primary); background: #f8fbff; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .btn:hover { border-color: var(--primary); background: #f8fbff; transform: translateY(-5px); }
         .icon-circle { font-size: 24px; width: 50px; height: 50px; background: #edf2f7; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
 
         .footer-line { margin-top: 60px; color: #718096; font-size: 0.95rem; border-top: 1px solid #ddd; padding-top: 25px; }
-        
-        /* تنسيق الشرح داخل المودال */
         .guide-box { background:#f9f9f9; padding:15px; border-right:5px solid var(--primary); margin:15px 0; }
-        .example-box { color: #2d3748; font-weight: bold; background: #fff8e1; padding: 10px; border-radius: 8px; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -103,9 +100,10 @@
     <div class="teacher-name">إعداد الأستاذ: عبدالعزيز الفيفي 👨‍🏫</div>
 
     <div class="tabs-container">
-        <button class="tab-btn active" onclick="openTab('analog', 'التناظر اللفظي')">🔗 التناظر اللفظي</button>
+        <button class="tab-btn" onclick="openTab('analog', 'التناظر اللفظي')">🔗 التناظر اللفظي</button>
         <button class="tab-btn" onclick="openTab('odd', 'المفردة والارتباط')">🔍 المفردة والارتباط</button>
-        <button class="tab-btn locked" onclick="lockNotice('الخطأ في السياق')">📝 الخطأ في السياق</button>
+        
+       <button class="tab-btn locked" onclick="lockNotice('الخطأ السياقي')">❌ الخطأ السياقي</button>
         <button class="tab-btn locked" onclick="lockNotice('إكمال الجمل')">📝 إكمال الجمل</button>
         <button class="tab-btn locked" onclick="lockNotice('استيعاب المقروء')">📖 استيعاب المقروء</button>
     </div>
@@ -130,8 +128,16 @@
         <a href="https://forms.cloud.microsoft/r/SZptwEewNa?origin=lprLink" class="btn"><div class="icon-circle">💻</div><span>نموذج التناظر 11</span></a>
         <a href="https://forms.cloud.microsoft/r/B2HdjC9Kfc?origin=lprLink" class="btn"><div class="icon-circle">🌎</div><span>نموذج التناظر 12</span></a>
         <a href="https://aztlaztl1512-bit.github.io/school30//" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 13</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school31/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 14</span></a>
+        <a href="https://aztlaztl1512-bit.github.io/school31/" class="btn"><div class="icon-circle">💻</div><span>نموذج التناظر 14</span></a>
         <a href="https://aztlaztl1512-bit.github.io/school32/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 15</span></a>
+<a href="https://aztlaztl1512-bit.github.io/ABONAOAF1/" class="btn"><div class="icon-circle">📝</div><span>نموذج التناظر 16</span></a>
+<a href="https://aztlaztl1512-bit.github.io/ABONAOAF2/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 17</span></a>
+<a href="https://aztlaztl1512-bit.github.io/ABONAOAF3/" class="btn"><div class="icon-circle">📖</div><span>نموذج التناظر 18</span></a>
+<a href="https://aztlaztl1512-bit.github.io/ABONAOAF4/" class="btn"><div class="icon-circle">🌎</div><span>نموذج التناظر 19</span></a>
+<a href="https://aztlaztl1512-bit.github.io/ABONAOAF5/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 20</span></a>
+<a href="https://aztlaztl1512-bit.github.io/ABONAOAF6/" class="btn"><div class="icon-circle">🧪</div><span>نموذج التناظر 21</span></a>
+<a href="https://aztlaztl1512-bit.github.io/ABONAOAF7/" class="btn"><div class="icon-circle">📐</div><span>نموذج التناظر 22</span></a>
+<a href="https://aztlaztl1512-bit.github.io/ABONAOAF8/" class="btn"><div class="icon-circle">💡</div><span>نموذج التناظر 23</span></a>
     </div>
 
     <div id="odd" class="model-list">
@@ -153,9 +159,9 @@
         <a href="https://aztlaztl1512-bit.github.io/school36/" class="btn"><div class="icon-circle">🏆</div><span>نموذج المفردة 31</span></a>
     </div>
 
-    <div id="error" class="model-list">
-        <div style="grid-column: 1/-1; padding: 20px; color: #718096;">جارٍ إضافة نماذج الخطأ السياقي المتبقية..</div>
-    </div>
+    <div id="error" class="model-list"><a href="https://aztlaztl1512-bit.github.io/ABONAOAF4/" class="btn"><div class="icon-circle">❌</div><span>نموذج الخطأ السياقي 1</span></a></div>
+    <div id="complete" class="model-list"><a href="https://aztlaztl1512-bit.github.io/ABONAOAF3/" class="btn"><div class="icon-circle">📝</div><span>نموذج إكمال الجمل 1</span></a></div>
+    <div id="reading" class="model-list"><a href="https://aztlaztl1512-bit.github.io/ABONAOAF2/" class="btn"><div class="icon-circle">📖</div><span>نموذج استيعاب المقروء 1</span></a></div>
 
     <div id="guideModal" class="modal">
         <div class="modal-content">
@@ -169,24 +175,8 @@
 
 <script>
     const guides = {
-        analog: `
-            <h2 style="color:var(--primary)">🔗 دليل التناظر اللفظي</h2>
-            <div class="guide-box"><b>💡 الاستراتيجية:</b> ضع الكلمتين في جملة بسيطة، وتأكد من ترتيب العلاقة (من اليمين لليسار).</div>
-            <p><b>مثال مشروح:</b> (رئة : تنفس)<br>
-            الجملة: الرئة وظيفتها التنفس. الخيار الصحيح سيكون (معدة : هضم) لأن المعدة وظيفتها الهضم.</p>
-        `,
-        odd: `
-            <h2 style="color:var(--primary)">🔍 دليل المفردة والارتباط</h2>
-            <div class="guide-box"><b>💡 الاستراتيجية:</b> ابحث عن الرابط المشترك بين 3 كلمات، والعنصر الذي يخرج عن هذا الرابط هو "المفردة الشاذة".</div>
-            <p><b>مثال مشروح:</b> (أسد - نمر - ذئب - غزال)<br>
-            التصنيف: حيوانات مفترسة. الغزال يخرج عن التصنيف لأنه عاصب.</p>
-        `,
-        error: `
-            <h2 style="color:var(--primary)">❌ دليل الخطأ السياقي</h2>
-            <div class="guide-box"><b>💡 الاستراتيجية:</b> الكلمة الخطأ غالباً ما تكون هي التي لو استبدلتها بعكسها لاستقام المعنى.</div>
-            <p><b>مثال مشروح:</b> "المتفائل يرى ضوءاً لا يوجد، والمتشائم يرى ضوءاً فيعمل على إطفائه".<br>
-            المتشائم لا يرى ضوءاً بل ظلاماً، لذا كلمة "ضوءاً" الثانية هي الخطأ.</p>
-        `
+        analog: `<h2>🔗 دليل التناظر اللفظي</h2><div class="guide-box">💡 <b>الاستراتيجية:</b> ضع الكلمتين في جملة بسيطة.</div>`,
+        odd: `<h2>🔍 دليل المفردة والارتباط</h2><div class="guide-box">💡 <b>الاستراتيجية:</b> ابحث عن الرابط الذي يجمع ثلاث كلمات.</div>`
     };
 
     let currentSection = 'analog';
@@ -206,11 +196,11 @@
     }
 
     function lockNotice(sectionName) {
-        alert("🛡️ عذراً يا بطل..\nقسم (" + sectionName + ") قيد التجهيز حالياً وسيتم افتتاحه قريباً بإذن الله.");
+        alert("🛡️ عذراً يا بطل..\nقسم (" + sectionName + ") ستفتح قريبا بإذن الله.");
     }
 
     function showGuide() {
-        document.getElementById('modal-body').innerHTML = guides[currentSection] || "سيتم إضافة الدليل قريباً.";
+        document.getElementById('modal-body').innerHTML = guides[currentSection] || "سيتم إضافة الشرح لاحقاً عند فتح القسم.";
         document.getElementById('guideModal').style.display = "block";
     }
 
