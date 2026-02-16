@@ -11,6 +11,7 @@
             --border-gray: #cbd5e0;
             --bg-soft: #f0f4f8;
             --gold: #d4af37;
+            --locked-gray: #a0aec0;
         }
 
         body {
@@ -44,7 +45,11 @@
 
         .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(43, 108, 176, 0.3); }
 
-        /* حقل البحث */
+        .tab-btn.locked {
+            background: #edf2f7; color: var(--locked-gray); border-color: var(--border-gray);
+            cursor: not-allowed; opacity: 0.7;
+        }
+
         #searchBox {
             width: 90%; max-width: 500px; padding: 15px; margin-bottom: 25px;
             border: 2px solid var(--primary); border-radius: 15px;
@@ -84,6 +89,10 @@
         .icon-circle { font-size: 24px; width: 50px; height: 50px; background: #edf2f7; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
 
         .footer-line { margin-top: 60px; color: #718096; font-size: 0.95rem; border-top: 1px solid #ddd; padding-top: 25px; }
+        
+        /* تنسيق الشرح داخل المودال */
+        .guide-box { background:#f9f9f9; padding:15px; border-right:5px solid var(--primary); margin:15px 0; }
+        .example-box { color: #2d3748; font-weight: bold; background: #fff8e1; padding: 10px; border-radius: 8px; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -96,9 +105,9 @@
     <div class="tabs-container">
         <button class="tab-btn active" onclick="openTab('analog', 'التناظر اللفظي')">🔗 التناظر اللفظي</button>
         <button class="tab-btn" onclick="openTab('odd', 'المفردة والارتباط')">🔍 المفردة والارتباط</button>
-        <button class="tab-btn" onclick="openTab('complete', 'إكمال الجمل')">📝 إكمال الجمل</button>
         <button class="tab-btn" onclick="openTab('error', 'الخطأ السياقي')">❌ الخطأ السياقي</button>
-        <button class="tab-btn" onclick="openTab('reading', 'استيعاب المقروء')">📖 استيعاب المقروء</button>
+        <button class="tab-btn locked" onclick="lockNotice('إكمال الجمل')">📝 إكمال الجمل</button>
+        <button class="tab-btn locked" onclick="lockNotice('استيعاب المقروء')">📖 استيعاب المقروء</button>
     </div>
 
     <input type="text" id="searchBox" placeholder="🔍 ابحث في هذا القسم..." onkeyup="searchModels()">
@@ -144,9 +153,9 @@
         <a href="https://aztlaztl1512-bit.github.io/school36/" class="btn"><div class="icon-circle">🏆</div><span>نموذج المفردة 31</span></a>
     </div>
 
-    <div id="complete" class="model-list"></div>
-    <div id="error" class="model-list"></div>
-    <div id="reading" class="model-list"></div>
+    <div id="error" class="model-list">
+        <div style="grid-column: 1/-1; padding: 20px; color: #718096;">جارٍ إضافة نماذج الخطأ السياقي المتبقية..</div>
+    </div>
 
     <div id="guideModal" class="modal">
         <div class="modal-content">
@@ -160,11 +169,24 @@
 
 <script>
     const guides = {
-        analog: `<h2>🔗 دليل التناظر اللفظي</h2><p>اكتشاف التماثل بين زوجين من الكلمات.</p><ul><li><b>مثال:</b> (رئة : تنفس) علاقة وظيفة.</li><li>⚠️ انتبه لترتيب العلاقة.</li></ul>`,
-        odd: `<h2>🔍 دليل المفردة والارتباط</h2><p>دمج مهارات التصنيف والربط الذهني:</p><ul><li><b>المفردة الشاذة:</b> استخراج الكلمة المختلفة عن البقية.</li><li><b>الارتباط:</b> إيجاد الكلمة الأكثر صلة برأس السؤال.</li></ul>`,
-        complete: `<h2>📝 دليل إكمال الجمل</h2><p>تعبئة الفراغات لتكوين جملة صحيحة منطقياً.</p>`,
-        error: `<h2>❌ دليل الخطأ السياقي</h2><p>تمييز الكلمة التي أفسدت سياق الجملة الصحيح.</p>`,
-        reading: `<h2>📖 دليل استيعاب المقروء</h2><p>تحليل النصوص واستنتاج الأفكار المباشرة وغير المباشرة.</p>`
+        analog: `
+            <h2 style="color:var(--primary)">🔗 دليل التناظر اللفظي</h2>
+            <div class="guide-box"><b>💡 الاستراتيجية:</b> ضع الكلمتين في جملة بسيطة، وتأكد من ترتيب العلاقة (من اليمين لليسار).</div>
+            <p><b>مثال مشروح:</b> (رئة : تنفس)<br>
+            الجملة: الرئة وظيفتها التنفس. الخيار الصحيح سيكون (معدة : هضم) لأن المعدة وظيفتها الهضم.</p>
+        `,
+        odd: `
+            <h2 style="color:var(--primary)">🔍 دليل المفردة والارتباط</h2>
+            <div class="guide-box"><b>💡 الاستراتيجية:</b> ابحث عن الرابط المشترك بين 3 كلمات، والعنصر الذي يخرج عن هذا الرابط هو "المفردة الشاذة".</div>
+            <p><b>مثال مشروح:</b> (أسد - نمر - ذئب - غزال)<br>
+            التصنيف: حيوانات مفترسة. الغزال يخرج عن التصنيف لأنه عاصب.</p>
+        `,
+        error: `
+            <h2 style="color:var(--primary)">❌ دليل الخطأ السياقي</h2>
+            <div class="guide-box"><b>💡 الاستراتيجية:</b> الكلمة الخطأ غالباً ما تكون هي التي لو استبدلتها بعكسها لاستقام المعنى.</div>
+            <p><b>مثال مشروح:</b> "المتفائل يرى ضوءاً لا يوجد، والمتشائم يرى ضوءاً فيعمل على إطفائه".<br>
+            المتشائم لا يرى ضوءاً بل ظلاماً، لذا كلمة "ضوءاً" الثانية هي الخطأ.</p>
+        `
     };
 
     let currentSection = 'analog';
@@ -175,6 +197,7 @@
         for (let list of lists) { list.classList.remove('active'); }
         let btns = document.getElementsByClassName('tab-btn');
         for (let btn of btns) { btn.classList.remove('active'); }
+        
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
         document.getElementById('guide-btn-text').innerText = btnText;
@@ -182,8 +205,12 @@
         searchModels();
     }
 
+    function lockNotice(sectionName) {
+        alert("🛡️ عذراً يا بطل..\nقسم (" + sectionName + ") قيد التجهيز حالياً وسيتم افتتاحه قريباً بإذن الله.");
+    }
+
     function showGuide() {
-        document.getElementById('modal-body').innerHTML = guides[currentSection];
+        document.getElementById('modal-body').innerHTML = guides[currentSection] || "سيتم إضافة الدليل قريباً.";
         document.getElementById('guideModal').style.display = "block";
     }
 
@@ -192,6 +219,7 @@
     function searchModels() {
         let input = document.getElementById('searchBox').value.toLowerCase();
         let activeList = document.querySelector('.model-list.active');
+        if(!activeList) return;
         let items = activeList.getElementsByTagName('a');
         for (let i = 0; i < items.length; i++) {
             let text = items[i].innerText.toLowerCase();
