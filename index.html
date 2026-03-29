@@ -1,255 +1,29 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>منصة التميز اللفظي - أ. عبدالعزيز الفيفي</title>
-    <style>
-        :root {
-            --primary: #2b6cb0;
-            --accent-red: #e53e3e;
-            --border-gray: #cbd5e0;
-            --bg-soft: #f0f4f8;
-            --gold: #d4af37;
-            --locked-gray: #a0aec0;
-        }
+# تقرير إنجاز بوابة الاختبارات الرقمية 🚀
+## إعداد الأستاذ: عبد العزيز الفيفي / ثانوية الأمير عبد المجيد 🏫
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 0; min-height: 100vh;
-            background-color: var(--bg-soft);
-            background-attachment: fixed;
-        }
+---
 
-        .container {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(15px);
-            width: 100%; min-height: 100vh;
-            text-align: center; padding: 40px 20px; box-sizing: border-box;
-        }
+## 📊 أولاً: إحصائيات وخطة العمل (الإنفوجرافيك التوضيحي)
 
-        .school-name-text { color: var(--accent-red); font-weight: 800; font-size: 1.4rem; display: block; margin-bottom: 5px; }
-        h1 { color: #2d3748; font-size: clamp(22px, 5vw, 30px); margin: 10px 0; font-weight: 800; }
-        .teacher-name { color: var(--primary); font-size: 1.1rem; margin-bottom: 25px; font-weight: bold; }
+![رسم بياني يوضح إنجاز 135 طالب وخطة الختم 1447](images/image_1.png)
 
-        .tabs-container {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
-            margin-bottom: 20px; background: white; padding: 15px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
+* **عدد الطلاب:** 135 طالب.
+* **الحالة:** القسم الثاني *مكتمل*.
+* **الموعد النهائي:** ختم المنهج في **04 / 12 / 1447 هـ**.
 
-        .tab-btn {
-            padding: 12px 18px; border: 2px solid var(--primary); border-radius: 12px;
-            background: white; color: var(--primary); font-weight: bold; cursor: pointer;
-            transition: 0.3s; flex-grow: 1; max-width: 170px; font-size: 0.9rem;
-        }
+---
 
-        .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(43, 108, 176, 0.3); }
+## 💡 ثانياً: المميزات التقنية ونظرة داخلية (لقطات شاشة توضيحية)
 
-        .tab-btn.locked {
-            background: #edf2f7; color: var(--locked-gray); border-color: var(--border-gray);
-            cursor: not-allowed; opacity: 0.7;
-        }
+تعتمد المنصة تصميماً حديثاً لتسهيل وصول الطلاب للاختبارات، وأبرزها نظام التحدي اليومي المتجدد.
 
-        #searchBox {
-            width: 90%; max-width: 500px; padding: 15px; margin-bottom: 25px;
-            border: 2px solid var(--primary); border-radius: 15px;
-            text-align: center; outline: none; background: white; font-size: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
+![لقطات شاشة توضيحية لواجهة المنصة وأيقونة التحدي اليومي](images/image_0.png)
 
-        .guide-trigger {
-            background: var(--gold); color: white; border: none; padding: 12px 25px;
-            border-radius: 10px; font-weight: bold; cursor: pointer; margin-bottom: 25px;
-            display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
-        }
+### آلية التحدي اليومي (Daily Challenge)
+* يظهر العداد التنازلي في واجهة المستخدم (كما في الصورة أعلاه).
+* يتغير رابط الاختبار ونموذج الأسئلة آلياً كل 24 ساعة لضمان استمرارية القياس.
 
-        .modal {
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
-        }
-        .modal-content {
-            background: white; margin: 5% auto; padding: 35px; border-radius: 25px;
-            width: 85%; max-width: 750px; text-align: right; max-height: 80vh; overflow-y: auto;
-            position: relative; line-height: 1.8; border-top: 10px solid var(--gold);
-        }
-        .close-btn { position: absolute; left: 20px; top: 15px; font-size: 30px; cursor: pointer; color: #999; }
+---
 
-        .model-list { 
-            display: none; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
-            gap: 20px; padding: 20px 5%;
-        }
-        .model-list.active { display: grid; }
-
-        .btn {
-            background: white; padding: 25px 15px; text-decoration: none;
-            border-radius: 20px; color: #2d3748; border: 1px solid var(--border-gray);
-            display: flex; flex-direction: column; align-items: center; gap: 12px; transition: 0.3s;
-        }
-        .btn:hover { border-color: var(--primary); background: #f8fbff; transform: translateY(-5px); }
-        .icon-circle { font-size: 24px; width: 50px; height: 50px; background: #edf2f7; border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-
-        .footer-line { margin-top: 60px; color: #718096; font-size: 0.95rem; border-top: 1px solid #ddd; padding-top: 25px; }
-        .guide-box { background:#f9f9f9; padding:15px; border-right:5px solid var(--primary); margin:15px 0; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <span class="school-name-text">🏰 ثانوية الأمير عبدالمجيد</span>
-    <h1>✨ منصة التميز الرقمية (القسم اللفظي) ✨</h1>
-    <div class="teacher-name">إعداد الأستاذ: عبدالعزيز الفيفي 👨‍🏫</div>
-
-    <div class="tabs-container">
-        <button class="tab-btn" onclick="openTab('analog', 'التناظر اللفظي')">🔗 التناظر اللفظي</button>
-        <button class="tab-btn" onclick="openTab('odd', 'المفردة والارتباط')">🔍 المفردة والارتباط</button>
-        
-       <button class="tab-btn locked" onclick="lockNotice('الخطأ السياقي')">❌ الخطأ السياقي</button>
-        <button class="tab-btn locked" onclick="lockNotice('إكمال الجمل')">📝 إكمال الجمل</button>
-        <button class="tab-btn locked" onclick="lockNotice('استيعاب المقروء')">📖 استيعاب المقروء</button>
-    </div>
-
-    <input type="text" id="searchBox" placeholder="🔍 ابحث في هذا القسم..." onkeyup="searchModels()">
-    <br>
-    <button class="guide-trigger" onclick="showGuide()">
-        💡 دليل قسم: <span id="guide-btn-text">التناظر اللفظي</span>
-    </button>
-
-    <div id="analog" class="model-list active">
-<a href="https://aztlaztl1512-bit.github.io/TALEMAT/" class="btn"><div class="icon-circle">💡</div><span> دليل قسم </span></a>
-       <a href="https://aztlaztl1512-bit.github.io/MAHME-1/" class="btn"><div class="icon-circle">📖</div><span>نموذج التناظر 1</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-2/" class="btn"><div class="icon-circle">🤯</div><span>نموذج التناظر 2</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-3/" class="btn"><div class="icon-circle">📐</div><span>نموذج التناظر 3</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-4/" class="btn"><div class="icon-circle">💻</div><span>نموذج التناظر 4</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-5/" class="btn"><div class="icon-circle">📖</div><span>نموذج التناظر 5</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-6/" class="btn"><div class="icon-circle">🌎</div><span>نموذج التناظر 6</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-7/" class="btn"><div class="icon-circle">🧪</div><span>نموذج التناظر 7</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-8/" class="btn"><div class="icon-circle">🌎</div><span>نموذج التناظر 8</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-9/" class="btn"><div class="icon-circle">📝</div><span>نموذج التناظر 9</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-10/" class="btn"><div class="icon-circle">🤯</div><span>نموذج التناظر 10</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-11/" class="btn"><div class="icon-circle">💻</div><span>نموذج التناظر 11</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-12/" class="btn"><div class="icon-circle">🧪</div><span>نموذج التناظر 12</span></a>
- <a href="https://aztlaztl1512-bit.github.io/MAHME-13/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 13</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-14/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 14</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-15/" class="btn"><div class="icon-circle">🔍</div><span>نموذج التناظر 15</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-16/" class="btn"><div class="icon-circle">🧪</div><span>نموذج التناظر 16</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-17/" class="btn"><div class="icon-circle">💡</div><span>نموذج التناظر 17</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-18/" class="btn"><div class="icon-circle">📖</div><span>نموذج التناظر 18</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-19/" class="btn"><div class="icon-circle">🌎</div><span>نموذج التناظر 19</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-20/" class="btn"><div class="icon-circle">📝</div><span>نموذج التناظر 20</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-21/" class="btn"><div class="icon-circle">💻</div><span>نموذج التناظر 21</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-22/" class="btn"><div class="icon-circle">📐</div><span>نموذج التناظر 22</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-23/" class="btn"><div class="icon-circle">💻</div><span>نموذج التناظر 23</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-24/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 24</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-25/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 25</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-26/" class="btn"><div class="icon-circle">🌎</div><span>نموذج التناظر 26</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-27/" class="btn"><div class="icon-circle">💻</div><span>نموذج التناظر 27</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-28/" class="btn"><div class="icon-circle">🧪</div><span>نموذج التناظر 28</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-29/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 29</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-30/" class="btn"><div class="icon-circle">🔍</div><span>نموذج التناظر 30</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-31/" class="btn"><div class="icon-circle">📐</div><span>نموذج التناظر 31</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-32/" class="btn"><div class="icon-circle">💻</div><span>نموذج التناظر 32</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-33/" class="btn"><div class="icon-circle">📖</div><span>نموذج التناظر 33</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-34/" class="btn"><div class="icon-circle">🏆</div><span>نموذج التناظر 34</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-35/" class="btn"><div class="icon-circle">📝</div><span>نموذج التناظر 35</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-36/" class="btn"><div class="icon-circle">📐</div><span>نموذج التناظر 36</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-37/" class="btn"><div class="icon-circle">🔗</div><span>نموذج التناظر 37</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-38/" class="btn"><div class="icon-circle">📐</div><span>نموذج التناظر 38</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-39/" class="btn"><div class="icon-circle">🌎</div><span>نموذج التناظر 39</span></a>
-<a href="https://aztlaztl1512-bit.github.io/MAHME-40/" class="btn"><div class="icon-circle">🔗</div><span>نموذج التناظر 40</span></a>
-        <a href="https://forms.cloud.microsoft/r/SZptwEewNa?origin=lprLink" class="btn"><div class="icon-circle">🌎</div><span>نموذج التناظر فورمز</span></a>
-        <a href="https://forms.office.com/r/s04A7b96Fs?origin=lprLink" class="btn"><div class="icon-circle">📝</div><span>نموذج التناظر فورمز</span></a>
-        <a href="https://forms.cloud.microsoft/r/SZptwEewNa?origin=lprLink" class="btn"><div class="icon-circle">💻</div><span>نموذج التناظر فورمز</span></a>
-        <a href="https://forms.cloud.microsoft/r/B2HdjC9Kfc?origin=lprLink" class="btn"><div class="icon-circle">🌎</div><span>نموذج التناظر فورمز</span></a>
-    </div>
-
-    <div id="odd" class="model-list">
- <a href="https://aztlaztl1512-bit.github.io/TALEMAT2/" class="btn"><div class="icon-circle">💡</div><span>دليل قسم </span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school21/" class="btn"><div class="icon-circle">🏆</div><span>نموذج المفردة 1</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school15/" class="btn"><div class="icon-circle">🔍</div><span>نموذج المفردة 2</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school16//" class="btn"><div class="icon-circle">🧪</div><span>نموذج المفردة 3</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school12" class="btn"><div class="icon-circle">💡</div><span>نموذج المفردة 4</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school22/" class="btn"><div class="icon-circle">📖</div><span>نموذج المفردة 5</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school23/" class="btn"><div class="icon-circle">🌎</div><span>نموذج المفردة 6</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school24/" class="btn"><div class="icon-circle">📝</div><span>نموذج المفردة 7</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school25/" class="btn"><div class="icon-circle">💻</div><span>نموذج المفردة 8</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school26/" class="btn"><div class="icon-circle">📐</div><span>نموذج المفردة 9</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school27/" class="btn"><div class="icon-circle">📝</div><span>نموذج المفردة 10</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school28/" class="btn"><div class="icon-circle">🏆</div><span>نموذج المفردة 11</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school29/" class="btn"><div class="icon-circle">🏆</div><span>نموذج المفردة 12</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school34/" class="btn"><div class="icon-circle">🏆</div><span>نموذج المفردة 13</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/school35/" class="btn"><div class="icon-circle">🏆</div><span>نموذج المفردة 14</span></a>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME1/" class="btn"><div class="icon-circle">🏆</div><span>نموذج المفردة 15</span></a>
-<a href="https://aztlaztl1512-bit.github.io/school36/" class="btn"><div class="icon-circle">🏆</div><span>نموذج المفردة 16</span></a>
-    </div>
-
-    <div id="error" class="model-list"><a href="https://aztlaztl1512-bit.github.io/ABONAOAF4/" class="btn"><div class="icon-circle">❌</div><span>نموذج الخطأ السياقي 1</span></a></div>
-    <div id="complete" class="model-list"><a href="https://aztlaztl1512-bit.github.io/ABONAOAF3/" class="btn"><div class="icon-circle">📝</div><span>نموذج إكمال الجمل 1</span></a></div>
-    <div id="reading" class="model-list"><a href="https://aztlaztl1512-bit.github.io/ABONAOAF2/" class="btn"><div class="icon-circle">📖</div><span>نموذج استيعاب المقروء 1</span></a></div>
-
-    <div id="guideModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="hideGuide()">&times;</span>
-            <div id="modal-body"></div>
-        </div>
-    </div>
-
-    <div class="footer-line">✨ أ / عبد العزيز الفيفي - ثانوية الأمير عبدالمجيد 🎓</div>
-</div>
-
-<script>
-    const guides = {
-        analog: `<h2>🔗 دليل التناظر اللفظي</h2><div class="guide-box">💡 <b>الاستراتيجية:</b> استراتيجية الحل 
-اصنع جملة تربط الكلمتين ببعضهما، ثم طبق نفس الجملة على الخيارات.
-</div>
-مثال: (رئة : تنفس)
-الجملة: الرئة "تُستخدم لـ" التنفس.
-</div>
-(المعدة : هضم)  صح .. المعدة تُستخدم للهضم.
-</div>
- <div class="footer-line"> لمزيدٍ من المعلومات ( ملف الشرح ) </div>
-</div>`,
-        odd: `<h2>🔍 دليل المفردة والارتباط</h2><div class="guide-box">💡 <b>الاستراتيجية:</b> ابحث عن الرابط الذي يجمع ثلاث كلمات.</div>`
-    };
-
-    let currentSection = 'analog';
-
-    function openTab(tabId, btnText) {
-        currentSection = tabId;
-        let lists = document.getElementsByClassName('model-list');
-        for (let list of lists) { list.classList.remove('active'); }
-        let btns = document.getElementsByClassName('tab-btn');
-        for (let btn of btns) { btn.classList.remove('active'); }
-        
-        document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
-        document.getElementById('guide-btn-text').innerText = btnText;
-        document.getElementById('searchBox').value = '';
-        searchModels();
-    }
-
-    function lockNotice(sectionName) {
-        alert("🛡️ عذراً يا بطل..\nقسم (" + sectionName + ") ستفتح قريبا بإذن الله.");
-    }
-
-    function showGuide() {
-        document.getElementById('modal-body').innerHTML = guides[currentSection] || "سيتم إضافة الشرح لاحقاً عند فتح القسم.";
-        document.getElementById('guideModal').style.display = "block";
-    }
-
-    function hideGuide() { document.getElementById('guideModal').style.display = "none"; }
-
-    function searchModels() {
-        let input = document.getElementById('searchBox').value.toLowerCase();
-        let activeList = document.querySelector('.model-list.active');
-        if(!activeList) return;
-        let items = activeList.getElementsByTagName('a');
-        for (let i = 0; i < items.length; i++) {
-            let text = items[i].innerText.toLowerCase();
-            items[i].style.display = text.includes(input) ? "flex" : "none";
-        }
-    }
-
-    window.onclick = function(event) { if (event.target == document.getElementById('guideModal')) hideGuide(); }
-</script>
-</body>
-</html>
+## 🔗 رابط المنصة الحي
+[زيارة بوابة الاختبارات الرقمية](https://aztlaztl1512-bit.github.io/MAHME-/)
