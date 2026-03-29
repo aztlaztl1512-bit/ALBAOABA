@@ -25,16 +25,42 @@
         .stat-card p { font-size: 24px; font-weight: bold; color: #1a3066; margin: 5px 0 0; }
         
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .upload-box { width: 100%; height: 200px; border: 2px dashed #cbd5e0; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; background: #fbfcfd; position: relative; }
-        .upload-box img { width: 100%; height: 100%; object-fit: cover; }
-        .upload-box span { color: #a0aec0; font-size: 13px; font-weight: bold; text-align: center; padding: 10px; }
+        
+        /* تنسيق مربعات الصور - تم التعديل لعرض الصورة كاملة */
+        .upload-box { 
+            width: 100%; 
+            height: 250px; /* زيادة الطول قليلاً للعرض الأفضل */
+            border: 2px dashed #cbd5e0; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            cursor: pointer; 
+            background: #fff; /* خلفية بيضاء لظهور الهوامش */
+            position: relative; 
+        }
+        .upload-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; /* أهم تعديل: الصورة تظهر كاملة ومتناسقة دون قص */
+            display: none; /* مخفية حتى يتم الاختيار */
+        }
+        .upload-box span { 
+            color: #a0aec0; 
+            font-size: 13px; 
+            font-weight: bold; 
+            text-align: center; 
+            padding: 10px; 
+            position: absolute; /* لضمان التمركز فوق الصورة المحملة */
+        }
         
         .no-print { text-align: center; margin-top: 40px; padding: 20px; background: white; border-radius: 15px; }
         .btn-pdf { background: #e74c3c; color: white; padding: 15px 45px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3); }
         
         ul { padding-right: 20px; }
         li { margin-bottom: 8px; }
-        @media (max-width: 600px) { .header-section { flex-direction: column-reverse; align-items: center; } .qr-container { margin: 0 0 20px 0; } .gallery { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { .header-section { flex-direction: column-reverse; align-items: center; } .qr-container { margin: 0 0 20px 0; } .gallery { grid-template-columns: 1fr; } .upload-box { height: 200px; } }
     </style>
 </head>
 <body>
@@ -73,12 +99,12 @@
         <canvas id="progressChart"></canvas>
     </div>
 
-    <h3 style="color: #1a3066; border-right: 5px solid #f39c12; padding-right: 15px;">📸 شواهد الإنجاز الميداني:</h3>
+    <h3 style="color: #1a3066; border-right: 5px solid #f39c12; padding-right: 15px;">📸 شواهد الإنجاز الميداني (اضغط لاختيار الصورة كاملة):</h3>
     <div class="gallery">
-        <div class="upload-box" onclick="trigger(1)"><input type="file" id="f1" hidden onchange="view(this,1)"><span id="s1">اضغط لإضافة صورة<br>(واجهة المنصة)</span><img id="i1" style="display:none"></div>
-        <div class="upload-box" onclick="trigger(2)"><input type="file" id="f2" hidden onchange="view(this,2)"><span id="s2">اضغط لإضافة صورة<br>(التحدي اليومي)</span><img id="i2" style="display:none"></div>
-        <div class="upload-box" onclick="trigger(3)"><input type="file" id="f3" hidden onchange="view(this,3)"><span id="s3">اضغط لإضافة صورة<br>(الموسوعة الشاملة)</span><img id="i3" style="display:none"></div>
-        <div class="upload-box" onclick="trigger(4)"><input type="file" id="f4" hidden onchange="view(this,4)"><span id="s4">اضغط لإضافة صورة<br>(تفاعل الطلاب)</span><img id="i4" style="display:none"></div>
+        <div class="upload-box" onclick="trigger(1)"><input type="file" id="f1" hidden accept="image/*" onchange="view(this,1)"><span id="s1">اضغط هنا لإضافة<br>(واجهة المنصة)</span><img id="i1"></div>
+        <div class="upload-box" onclick="trigger(2)"><input type="file" id="f2" hidden accept="image/*" onchange="view(this,2)"><span id="s2">اضغط هنا لإضافة<br>(التحدي اليومي)</span><img id="i2"></div>
+        <div class="upload-box" onclick="trigger(3)"><input type="file" id="f3" hidden accept="image/*" onchange="view(this,3)"><span id="s3">اضغط هنا لإضافة<br>(الموسوعة الشاملة)</span><img id="i3"></div>
+        <div class="upload-box" onclick="trigger(4)"><input type="file" id="f4" hidden accept="image/*" onchange="view(this,4)"><span id="s4">اضغط هنا لإضافة<br>(تفاعل الطلاب)</span><img id="i4"></div>
     </div>
 
     <div class="conclusion-box">
@@ -96,7 +122,7 @@
 </div>
 
 <div class="no-print">
-    <p style="color: #666; font-size: 14px; margin-bottom: 15px;">1. اضغط على المربعات بالأعلى لإضافة صورك من الجوال<br>2. ثم اضغط الزر بالأسفل:</p>
+    <p style="color: #666; font-size: 14px; margin-bottom: 15px;">1. اضغط على المربعات بالأعلى لاختيار صورك كاملة من الجوال<br>2. ثم اضغط الزر بالأسفل:</p>
     <button class="btn-pdf" onclick="generatePDF()">📥 حفظ التقرير PDF بصيغة فاخرة</button>
 </div>
 
@@ -110,15 +136,16 @@
         colorLight : "#ffffff"
     });
 
-    // التحكم في إضافة الصور
+    // التحكم في إضافة الصور وعرضها كاملة
     function trigger(id) { document.getElementById('f' + id).click(); }
     function view(input, id) {
         if (input.files && input.files[0]) {
             var r = new FileReader();
             r.onload = function(e) {
-                document.getElementById('i' + id).src = e.target.result;
-                document.getElementById('i' + id).style.display = 'block';
-                document.getElementById('s' + id).style.display = 'none';
+                const imgElement = document.getElementById('i' + id);
+                imgElement.src = e.target.result;
+                imgElement.style.display = 'block'; // إظهار الصورة
+                document.getElementById('s' + id).style.display = 'none'; // إخفاء النص
             }
             r.readAsDataURL(input.files[0]);
         }
