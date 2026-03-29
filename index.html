@@ -6,83 +6,111 @@
     <title>تقرير التميز الرقمي - الفيفي</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
         body { font-family: 'Tajawal', sans-serif; background-color: #f0f2f5; margin: 0; padding: 15px; color: #2c3e50; }
         #report-canvas { max-width: 850px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-top: 15px solid #1a3066; position: relative; }
-        .header { text-align: center; margin-bottom: 30px; }
+        .header-section { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+        .header-text { text-align: right; flex: 1; }
+        .qr-container { text-align: center; margin-right: 20px; border: 1px solid #eee; padding: 10px; border-radius: 10px; background: #fff; }
+        .qr-container p { font-size: 10px; margin-top: 5px; color: #1a3066; font-weight: bold; }
+        
         .badge { background: #f39c12; color: white; padding: 5px 15px; border-radius: 50px; font-size: 13px; font-weight: bold; }
-        .intro-box, .conclusion-box { background: #f8f9fa; border-right: 5px solid #1a3066; padding: 20px; border-radius: 8px; margin: 25px 0; line-height: 1.8; }
-        .btn-platform { display: inline-block; background: linear-gradient(45deg, #1a3066, #3498db); color: white; padding: 12px 30px; text-decoration: none; border-radius: 50px; font-weight: bold; margin: 10px 0; box-shadow: 0 5px 15px rgba(26, 48, 102, 0.3); }
+        .intro-box, .conclusion-box { background: #f8f9fa; border-right: 6px solid #1a3066; padding: 20px; border-radius: 8px; margin: 25px 0; line-height: 1.8; }
+        
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin: 30px 0; }
         .stat-card { background: white; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid #e1e8ed; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
         .stat-card p { font-size: 24px; font-weight: bold; color: #1a3066; margin: 5px 0 0; }
+        
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .upload-box { width: 100%; height: 200px; border: 2px dashed #cbd5e0; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; background: #fbfcfd; }
+        .upload-box { width: 100%; height: 200px; border: 2px dashed #cbd5e0; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; background: #fbfcfd; position: relative; }
         .upload-box img { width: 100%; height: 100%; object-fit: cover; }
-        .no-print { text-align: center; margin-top: 40px; padding: 20px; }
-        .btn-pdf { background: #e74c3c; color: white; padding: 15px 45px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        .btn-pdf:hover { transform: scale(1.05); background: #c0392b; }
+        .upload-box span { color: #a0aec0; font-size: 13px; font-weight: bold; text-align: center; padding: 10px; }
+        
+        .no-print { text-align: center; margin-top: 40px; padding: 20px; background: white; border-radius: 15px; }
+        .btn-pdf { background: #e74c3c; color: white; padding: 15px 45px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3); }
+        
         ul { padding-right: 20px; }
-        li { margin-bottom: 10px; }
-        @media (max-width: 600px) { .gallery { grid-template-columns: 1fr; } }
+        li { margin-bottom: 8px; }
+        @media (max-width: 600px) { .header-section { flex-direction: column-reverse; align-items: center; } .qr-container { margin: 0 0 20px 0; } .gallery { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <div id="report-canvas">
-    <div class="header">
-        <span class="badge">🏰 ثانوية الأمير عبدالمجيد - قسم القدرات</span>
-        <h1 style="color: #1a3066; margin-top: 15px;">تقرير الإنجاز النوعي لمنصة التميز الرقمي</h1>
-        <p>إعداد الأستاذ: <strong>عبد العزيز الفيفي</strong></p>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-/" class="btn-platform" target="_blank">🔗 زيارة المنصة التعليمية</a>
+    <div class="header-section">
+        <div class="header-text">
+            <span class="badge">🏰 ثانوية الأمير عبدالمجيد - التميز الرقمي</span>
+            <h1 style="color: #1a3066; margin: 10px 0;">تقرير الإنجاز النوعي (القسم اللفظي)</h1>
+            <p style="margin: 0;">إعداد الأستاذ: <strong>عبد العزيز الفيفي</strong></p>
+        </div>
+        
+        <div class="qr-container">
+            <div id="qrcode"></div>
+            <p>امسح لزيارة المنصة</p>
+        </div>
     </div>
 
     <div class="intro-box">
-        <h3 style="margin-top: 0; color: #1a3066;">🚀 مقدمة التقرير:</h3>
+        <h3 style="margin-top: 0; color: #1a3066;">🚀 الرؤية والمقدمة:</h3>
         <ul style="list-style-type: '🔹 ';">
-            <li>انطلاقاً من رؤية المملكة 2030 في التحول الرقمي، تم تدشين هذا المسار التقني ليكون رافداً تعليمياً ذكياً لطلابنا.</li>
-            <li>يهدف المشروع إلى تطويع أدوات الذكاء الاصطناعي لخدمة القسم اللفظي وتبسيط استراتيجيات الحل.</li>
-            <li>يركز هذا التقرير على قياس كفاءة التفاعل الرقمي ومستوى التقدم المحرز خلال الفترة الماضية.</li>
+            <li>تحقيقاً لمستهدفات التحول الرقمي، تم بناء هذه المنصة لتكون بيئة تفاعلية ذكية للقدرات.</li>
+            <li>تم توظيف التقنية لتبسيط مهارات اللفظي ورفع الكفاءة التحصيلية لـ 135 طالباً.</li>
+            <li>يستعرض هذا التقرير مؤشرات الأداء الفنية والزمنية للمشروع.</li>
         </ul>
     </div>
 
     <div class="stats-grid">
         <div class="stat-card"><h3>المستفيدون</h3><p>135 طالباً</p></div>
-        <div class="stat-card"><h3>معدل الإنجاز</h3><p>90%</p></div>
-        <div class="stat-card"><h3>النماذج الذكية</h3><p>+120 نموذج</p></div>
-        <div class="stat-card"><h3>تحديث التحدي</h3><p>يومي (24س)</p></div>
+        <div class="stat-card"><h3>وتيرة المنهج</h3><p>90%</p></div>
+        <div class="stat-card"><h3>نماذج التدريب</h3><p>+120 نموذج</p></div>
+        <div class="stat-card"><h3>حالة التحدي</h3><p>فعال يومياً</p></div>
     </div>
 
-    <div style="height: 300px; margin-bottom: 40px;">
+    <div style="height: 280px; margin-bottom: 30px;">
         <canvas id="progressChart"></canvas>
     </div>
 
-    <h3 style="color: #1a3066; border-right: 5px solid #f39c12; padding-right: 15px;">📸 شواهد الإنجاز (اختر الصور من جوالك):</h3>
+    <h3 style="color: #1a3066; border-right: 5px solid #f39c12; padding-right: 15px;">📸 شواهد الإنجاز الميداني:</h3>
     <div class="gallery">
-        <div class="upload-box" onclick="trigger(1)"><input type="file" id="f1" hidden onchange="view(this,1)"><span id="s1">الصورة الأولى (الواجهة)</span><img id="i1" style="display:none"></div>
-        <div class="upload-box" onclick="trigger(2)"><input type="file" id="f2" hidden onchange="view(this,2)"><span id="s2">الصورة الثانية (التحدي)</span><img id="i2" style="display:none"></div>
-        <div class="upload-box" onclick="trigger(3)"><input type="file" id="f3" hidden onchange="view(this,3)"><span id="s3">الصورة الثالثة (الموسوعة)</span><img id="i3" style="display:none"></div>
-        <div class="upload-box" onclick="trigger(4)"><input type="file" id="f4" hidden onchange="view(this,4)"><span id="s4">الصورة الرابعة (التفاعل)</span><img id="i4" style="display:none"></div>
+        <div class="upload-box" onclick="trigger(1)"><input type="file" id="f1" hidden onchange="view(this,1)"><span id="s1">اضغط لإضافة صورة<br>(واجهة المنصة)</span><img id="i1" style="display:none"></div>
+        <div class="upload-box" onclick="trigger(2)"><input type="file" id="f2" hidden onchange="view(this,2)"><span id="s2">اضغط لإضافة صورة<br>(التحدي اليومي)</span><img id="i2" style="display:none"></div>
+        <div class="upload-box" onclick="trigger(3)"><input type="file" id="f3" hidden onchange="view(this,3)"><span id="s3">اضغط لإضافة صورة<br>(الموسوعة الشاملة)</span><img id="i3" style="display:none"></div>
+        <div class="upload-box" onclick="trigger(4)"><input type="file" id="f4" hidden onchange="view(this,4)"><span id="s4">اضغط لإضافة صورة<br>(تفاعل الطلاب)</span><img id="i4" style="display:none"></div>
     </div>
 
     <div class="conclusion-box">
         <h3 style="margin-top: 0; color: #1a3066;">🏁 الخاتمة والتوصيات:</h3>
         <ul style="list-style-type: '✅ ';">
-            <li>أظهرت النتائج ارتفاعاً ملحوظاً في سرعة حل الطلاب للتناظر اللفظي بنسبة 40%.</li>
-            <li>توصي الخطة الحالية بتكثيف التحديات اليومية حتى تاريخ الختام في 4/12/1447 هـ.</li>
-            <li>نطمح في المرحلة القادمة إلى أتمتة التصحيح بشكل كامل لتقديم تغذية راجعة فورية لكل طالب.</li>
+            <li>تم بفضل الله تجاوز الخطط الزمنية المقررة بنجاح ملحوظ في استيعاب الطلاب.</li>
+            <li>توصي الإحصائيات باستمرار نظام التحديات المتجدد لرفع الجاهزية للاختبارات النهائية.</li>
+            <li>تاريخ الختام المتوقع للمسار بالكامل: 4 / 12 / 1447 هـ.</li>
         </ul>
     </div>
 
-    <p style="text-align: center; font-size: 12px; color: #95a5a6; margin-top: 40px;">تم استخراج هذا التقرير آلياً لدعم الجودة والتميز التعليمي</p>
+    <p style="text-align: center; font-size: 11px; color: #95a5a6; margin-top: 30px; border-top: 1px solid #eee; padding-top: 10px;">
+        تم استخراج هذا التقرير رقمياً لدعم التميز التعليمي - 1447 هـ
+    </p>
 </div>
 
 <div class="no-print">
-    <button class="btn-pdf" onclick="pdf()">📥 حفظ التقرير كـ PDF فخم</button>
+    <p style="color: #666; font-size: 14px; margin-bottom: 15px;">1. اضغط على المربعات بالأعلى لإضافة صورك من الجوال<br>2. ثم اضغط الزر بالأسفل:</p>
+    <button class="btn-pdf" onclick="generatePDF()">📥 حفظ التقرير PDF بصيغة فاخرة</button>
 </div>
 
 <script>
+    // توليد الـ QR Code تلقائياً
+    new QRCode(document.getElementById("qrcode"), {
+        text: "https://aztlaztl1512-bit.github.io/MAHME-/",
+        width: 80,
+        height: 80,
+        colorDark : "#1a3066",
+        colorLight : "#ffffff"
+    });
+
+    // التحكم في إضافة الصور
     function trigger(id) { document.getElementById('f' + id).click(); }
     function view(input, id) {
         if (input.files && input.files[0]) {
@@ -95,25 +123,37 @@
             r.readAsDataURL(input.files[0]);
         }
     }
+
+    // رسم بياني فخم
     new Chart(document.getElementById('progressChart'), {
         type: 'line',
         data: {
-            labels: ['أسبوع 1', 'أسبوع 2', 'أسبوع 3', 'الحالي', 'الهدف'],
+            labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الحالي', 'المستهدف'],
             datasets: [{
-                label: 'مؤشر نمو الأداء %',
-                data: [10, 40, 65, 90, 100],
+                label: 'مؤشر التقدم %',
+                data: [12, 38, 62, 90, 100],
                 borderColor: '#1a3066',
-                backgroundColor: 'rgba(26, 48, 102, 0.05)',
+                backgroundColor: 'rgba(26, 48, 102, 0.08)',
                 fill: true,
                 tension: 0.4,
-                borderWidth: 4
+                borderWidth: 4,
+                pointBackgroundColor: '#f39c12'
             }]
         },
         options: { responsive: true, maintainAspectRatio: false }
     });
-    function pdf() {
-        const e = document.getElementById('report-canvas');
-        html2pdf().set({ margin: 10, filename: 'تقرير_التميز_الفيفي.pdf', html2canvas: { scale: 3 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(e).save();
+
+    // وظيفة الـ PDF الاحترافية
+    function generatePDF() {
+        const element = document.getElementById('report-canvas');
+        const opt = {
+            margin: 10,
+            filename: 'تقرير_التميز_الفيفي_1447.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 3, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
     }
 </script>
 
