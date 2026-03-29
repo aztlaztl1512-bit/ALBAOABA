@@ -3,25 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقرير تميز - أ. عبد العزيز الفيفي</title>
+    <title>تقرير التميز الرقمي - أ. عبد العزيز الفيفي</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background-color: #f0f4f8; margin: 0; padding: 20px; color: #333; }
-        #report { max-width: 800px; margin: auto; background: white; padding: 35px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 12px solid #1e3799; }
-        .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { color: #1e3799; font-size: 24px; margin: 10px 0; }
-        .btn-visit { display: block; width: fit-content; margin: 20px auto; background: #f39c12; color: white; padding: 12px 25px; text-decoration: none; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3); transition: 0.3s; }
-        .btn-visit:hover { background: #e67e22; transform: scale(1.05); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin: 25px 0; }
-        .card { background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #e9ecef; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #2d3436; }
+        #report { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid #1e3799; position: relative; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .btn-visit { display: inline-block; background: #f39c12; color: white; padding: 10px 20px; text-decoration: none; border-radius: 50px; font-weight: bold; margin: 15px 0; border: 2px solid #e67e22; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 25px 0; }
+        .card { background: #f1f4f9; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #d1d8e0; }
         .card p { font-size: 20px; font-weight: bold; color: #1e3799; margin: 5px 0 0; }
-        .chart-box { height: 300px; margin: 30px 0; }
+        .chart-box { height: 280px; margin-bottom: 30px; }
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .gallery img { width: 100%; border-radius: 10px; border: 2px solid #eee; }
-        .no-print { text-align: center; margin-top: 35px; border-top: 1px dashed #ccc; padding-top: 20px; }
-        .btn-pdf { background: #e74c3c; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; border: 2px solid #eee; background: #eee; }
+        .no-print { text-align: center; margin-top: 30px; }
+        .btn-pdf { background: #d63031; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
         @media (max-width: 600px) { .gallery { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -29,65 +27,62 @@
 
 <div id="report">
     <div class="header">
-        <p style="color: #7f8c8d; margin-bottom: 5px;">🏰 ثانوية الأمير عبدالمجيد</p>
-        <h1>تقرير إنجاز مسار التميز الرقمي (القسم اللفظي)</h1>
-        <p>إعداد الأستاذ: <strong>عبد العزيز الفيفي</strong></p>
-        
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-/" class="btn-visit" target="_blank">🚀 الدخول إلى المنصة التعليمية</a>
-    </div>
-
-    <div style="background: #fffcf0; border-right: 5px solid #f39c12; padding: 15px; border-radius: 5px; line-height: 1.7;">
-        تم بحمد الله إنجاز 90% من خطة القسم اللفظي، مع استمرارية تفعيل "التحدي اليومي" لـ 135 طالباً لضمان التميز في اختبارات القدرات.
+        <p style="font-weight: bold; color: #7f8c8d;">ثانوية الأمير عبدالمجيد</p>
+        <h1 style="color: #1e3799; font-size: 22px;">تقرير إنجاز مسار التميز الرقمي (اللفظي)</h1>
+        <p>الأستاذ: <strong>عبد العزيز الفيفي</strong></p>
+        <a href="https://aztlaztl1512-bit.github.io/MAHME-/" class="btn-visit">🚀 الدخول للمنصة التعليمية</a>
     </div>
 
     <div class="grid">
         <div class="card"><h3>الطلاب</h3><p>135</p></div>
         <div class="card"><h3>الإنجاز</h3><p>90%</p></div>
-        <div class="card"><h3>التحديات</h3><p>يومي</p></div>
+        <div class="card"><h3>التحدي</h3><p>يومي</p></div>
         <div class="card"><h3>الختام</h3><p>1447 هـ</p></div>
     </div>
 
-    <div class="chart-box"><canvas id="myChart"></canvas></div>
+    <div class="chart-box"><canvas id="progChart"></canvas></div>
 
-    <h3 style="color: #1e3799; border-bottom: 2px solid #f39c12; width: fit-content; padding-bottom: 5px;">📸 توثيق المنصة</h3>
+    <h3 style="color: #1e3799; border-right: 5px solid #f39c12; padding-right: 10px; margin-bottom: 15px;">📸 توثيق المنصة</h3>
     <div class="gallery">
-        <img src="Screenshot_2026-03-29-16-27-01-382_com.android.chrome.jpg" alt="واجهة">
-        <img src="Screenshot_2026-03-29-16-27-26-928_com.android.chrome.jpg" alt="تحدي">
-        <img src="Screenshot_2026-03-29-16-27-58-755_com.android.chrome.jpg" alt="موسوعة">
-        <img src="Screenshot_2026-03-29-16-28-13-146_com.android.chrome.jpg" alt="تفاعل">
+        <img src="1000203190.jpg" onerror="this.src='Screenshot_2026-03-29-16-27-01-382_com.android.chrome.jpg'">
+        <img src="1000203188.jpg" onerror="this.src='Screenshot_2026-03-29-16-27-26-928_com.android.chrome.jpg'">
+        <img src="1000203186.jpg" onerror="this.src='Screenshot_2026-03-29-16-27-58-755_com.android.chrome.jpg'">
+        <img src="1000203184.jpg" onerror="this.src='Screenshot_2026-03-29-16-28-13-146_com.android.chrome.jpg'">
     </div>
 </div>
 
 <div class="no-print">
-    <button class="btn-pdf" onclick="generatePDF()">📥 حفظ التقرير (PDF)</button>
+    <button class="btn-pdf" onclick="savePDF()">📥 حفظ التقرير كـ PDF</button>
 </div>
 
 <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
+    const ctx = document.getElementById('progChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['أسبوع 1', 'أسبوع 2', 'أسبوع 3', 'الحالي', 'الهدف'],
+            labels: ['أسبوع 1', 'أسبوع 2', 'أسبوع 3', 'الحالي', 'الختام'],
             datasets: [{
-                label: 'مستوى التقدم',
-                data: [10, 35, 60, 90, 100],
+                label: 'نسبة الإنجاز',
+                data: [15, 35, 60, 90, 100],
                 borderColor: '#1e3799',
-                tension: 0.4,
+                backgroundColor: 'rgba(30, 55, 153, 0.1)',
                 fill: true,
-                backgroundColor: 'rgba(30, 55, 153, 0.05)'
+                tension: 0.4
             }]
         },
         options: { responsive: true, maintainAspectRatio: false }
     });
 
-    function generatePDF() {
+    function savePDF() {
         const element = document.getElementById('report');
-        html2pdf().from(element).set({
+        const opt = {
             margin: 10,
-            filename: 'تقرير_الفيفي_الرقمي.pdf',
-            html2canvas: { scale: 2 },
+            filename: 'تقرير_الفيفي.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 2, useCORS: true },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        }).save();
+        };
+        html2pdf().set(opt).from(element).save();
     }
 </script>
 
