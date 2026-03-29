@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقرير التميز الرقمي الفاخر - الفيفي</title>
+    <title>تقرير التميز الرقمي الفاخر - أ/ عبدالعزيز الفيفي</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -16,6 +16,7 @@
             --accent-color: #d4af37;  
             --title-color: #800000;   
             --bg-light: #fdfdfd;
+            --silver: #C0C0C0;
         }
 
         body { font-family: 'Tajawal', sans-serif; background-color: #e9ecef; margin: 0; padding: 20px; color: #333; }
@@ -23,56 +24,74 @@
         #report-canvas { 
             max-width: 850px; margin: auto; background: white; padding: 50px; border-radius: 30px; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.15); border-top: 20px solid var(--primary-color); 
-            border-bottom: 10px solid var(--accent-color); position: relative;
+            border-bottom: 15px solid var(--accent-color); position: relative;
+            overflow: hidden;
         }
 
-        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 3px double #eee; padding-bottom: 25px; }
+        /* العلامة المائية للحماية */
+        #report-canvas::after {
+            content: "أ/ عبدالعزيز الفيفي - ثانوية الأمير عبدالمجيد";
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 50px; color: rgba(0,0,0,0.03); white-space: nowrap; pointer-events: none; z-index: 0;
+        }
+
+        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 3px double #eee; padding-bottom: 25px; position: relative; z-index: 1; }
         
-        h1 { color: var(--title-color); font-weight: 900; font-size: 26px; margin: 10px 0 5px; }
-        .author-name { color: var(--primary-color); font-size: 18px; font-weight: 700; margin: 0; }
+        h1 { color: var(--title-color); font-weight: 900; font-size: 28px; margin: 0; }
+        .author-name { color: var(--primary-color); font-size: 20px; font-weight: 700; margin: 5px 0; }
 
-        .qr-wrapper { text-align: center; background: #fff; padding: 10px; border: 2px solid var(--accent-color); border-radius: 15px; }
-        .qr-wrapper p { font-size: 10px; margin-top: 5px; font-weight: bold; color: var(--primary-color); }
+        .qr-wrapper { text-align: center; background: #fff; padding: 10px; border: 2px solid var(--accent-color); border-radius: 15px; transition: 0.3s; }
+        .qr-wrapper:hover { transform: scale(1.05); }
+        .qr-wrapper p { font-size: 11px; margin-top: 5px; font-weight: bold; color: var(--primary-color); }
 
-        /* صندوق الرسالة الموجهة للمدير */
         .director-message { 
             background: linear-gradient(135deg, #fffcf0 0%, #fff 100%); 
             border-right: 10px solid var(--title-color); 
             padding: 30px; border-radius: 15px; margin: 25px 0; 
             box-shadow: 5px 5px 15px rgba(0,0,0,0.03);
-            line-height: 1.9; position: relative;
+            line-height: 1.9; position: relative; z-index: 1;
         }
         .director-message::before { content: "❞"; position: absolute; left: 20px; top: 10px; font-size: 60px; color: var(--accent-color); opacity: 0.3; }
 
         .section-title { color: var(--title-color); font-size: 20px; font-weight: 900; margin-bottom: 15px; display: flex; align-items: center; }
         .section-title::before { content: ""; width: 12px; height: 12px; background: var(--accent-color); display: inline-block; margin-left: 10px; border-radius: 2px; }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 30px 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 30px 0; position: z-index: 1; }
         .stat-card { 
-            background: var(--primary-color); color: white; padding: 15px 5px; border-radius: 15px; 
-            text-align: center; border-bottom: 4px solid var(--accent-color);
+            background: var(--primary-color); color: white; padding: 20px 5px; border-radius: 15px; 
+            text-align: center; border-bottom: 5px solid var(--accent-color); transition: 0.4s;
         }
-        .stat-card h3 { font-size: 13px; margin: 0; opacity: 0.9; }
-        .stat-card p { font-size: 22px; font-weight: 900; margin: 5px 0 0; color: var(--accent-color); }
+        .stat-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(26, 48, 102, 0.2); }
+        .stat-card h3 { font-size: 14px; margin: 0; opacity: 0.9; }
+        .stat-card p { font-size: 24px; font-weight: 900; margin: 8px 0 0; color: var(--accent-color); }
+
+        .chart-container { background: #fafafa; padding: 20px; border-radius: 20px; border: 1px solid #eee; margin-bottom: 30px; height: 300px; }
 
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
         .upload-box { 
-            width: 100%; height: 240px; border: 2px dashed #d1d5db; border-radius: 20px; 
+            width: 100%; height: 220px; border: 2px dashed #d1d5db; border-radius: 20px; 
             display: flex; align-items: center; justify-content: center; overflow: hidden; 
-            cursor: pointer; background: #fafafa; position: relative;
+            cursor: pointer; background: #fff; position: relative; transition: 0.3s;
         }
-        .upload-box img { width: 100%; height: 100%; object-fit: contain; display: none; }
-        .upload-box span { color: #7f8c8d; font-weight: 700; text-align: center; font-size: 13px; }
+        .upload-box:hover { border-color: var(--accent-color); background: #fffdf5; }
+        .upload-box img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .upload-box span { color: #7f8c8d; font-weight: 700; text-align: center; font-size: 13px; padding: 10px; }
 
-        .footer-note { text-align: center; font-size: 12px; color: #999; margin-top: 40px; padding-top: 15px; border-top: 1px solid #eee; }
+        .signature-section { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 40px; padding: 20px; background: #f9f9f9; border-radius: 15px; }
+        .sig-box { text-align: center; width: 200px; }
+        .sig-line { border-top: 2px solid var(--primary-color); margin-top: 40px; padding-top: 5px; font-weight: bold; }
 
-        .no-print { text-align: center; margin: 30px 0; padding: 20px; background: #fff; border-radius: 15px; }
+        .footer-note { text-align: center; font-size: 11px; color: #aaa; margin-top: 30px; border-top: 1px solid #eee; padding-top: 10px; }
+
+        .no-print { text-align: center; margin: 30px 0; padding: 25px; background: #fff; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .btn-pdf { 
-            background: linear-gradient(45deg, var(--title-color), #b00000); color: white; padding: 15px 40px; 
+            background: linear-gradient(45deg, var(--title-color), #b00000); color: white; padding: 18px 45px; 
             border: none; border-radius: 50px; font-weight: 900; cursor: pointer; font-size: 18px; 
-            box-shadow: 0 10px 20px rgba(128, 0, 0, 0.2); transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(128, 0, 0, 0.3); transition: 0.3s;
         }
-        @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr 1fr; } .gallery { grid-template-columns: 1fr; } }
+        .btn-pdf:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(128, 0, 0, 0.4); }
+
+        @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr 1fr; } .gallery { grid-template-columns: 1fr; } .signature-section { flex-direction: column; align-items: center; gap: 20px; } }
     </style>
 </head>
 <body>
@@ -80,82 +99,142 @@
 <div id="report-canvas">
     <div class="header-section">
         <div class="header-text">
-            <h1 style="margin:0;">تقرير مسار التميز الرقمي (اللفظي)</h1>
+            <h1>تقرير مسار التميز الرقمي (اللفظي)</h1>
             <p class="author-name">الأستاذ: عبد العزيز الفيفي</p>
-            <p style="color: #666; font-weight: bold; margin: 5px 0;">ثانوية الأمير عبدالمجيد</p>
+            <p style="color: #666; font-weight: bold; margin: 0;">ثانوية الأمير عبدالمجيد | مكة المكرمة</p>
+            <p id="current-date" style="font-size: 12px; color: var(--accent-color); font-weight: bold; margin-top: 5px;"></p>
         </div>
         <div class="qr-wrapper">
             <div id="qrcode"></div>
-            <p>رابط المنصة</p>
+            <p>رابط المنصة الذكية</p>
         </div>
     </div>
 
     <div class="director-message">
         <div class="section-title">سعادة مدير المدرسة المحترم،،</div>
         <p style="margin: 0; text-align: justify;">
-            أضع بين أيديكم ثمرة الجهد الميداني والتقني لطلابنا؛ فبالتوازي مع شرح مهارات **القدرات (القسم اللفظي)** داخل الفصل الدراسي، نعلن بحمد الله عن إتمام شرح وتدريب **القسم الثاني** من المنهج بنجاح. 
-            ولضمان ديمومة التعلم، أطلقنا هذه **المنصة الرقمية** لتكون جسراً يربط الطالب بالمراجعة المستمرة والتدريب المكثف، وتهيئتهم **للاستعداد الأمثل** وتحقيق أعلى الدرجات بإذن الله.
+            أضع بين أيديكم تقرير الاستدامة الرقمية لطلابنا؛ فبالتوازي مع شرح مهارات **القدرات (القسم اللفظي)**، تم إطلاق هذه **المنصة التفاعلية** لتعزيز المهارات العليا، وتوفير بيئة تدريبية تحاكي الاختبارات الحقيقية. نسعى من خلالها لتمكين الطلاب من "التعلم المستمر" ورصد مستوياتهم بدقة واحترافية.
         </p>
     </div>
 
     <div class="stats-grid">
-        <div class="stat-card"><h3>المستفيدون</h3><p>135 طالباً</p></div>
-        <div class="stat-card"><h3>إتمام المنهج</h3><p>90%</p></div>
-        <div class="stat-card"><h3>بنك الأسئلة</h3><p>+120 نموذج</p></div>
-        <div class="stat-card"><h3>التحديث</h3><p>يومي</p></div>
+        <div class="stat-card"><h3>👤 المستفيدون</h3><p>135 طالباً</p></div>
+        <div class="stat-card"><h3>📈 إنجاز المنهج</h3><p>90%</p></div>
+        <div class="stat-card"><h3>📚 بنك الأسئلة</h3><p>+120 نموذج</p></div>
+        <div class="stat-card"><h3>⚡ التحديثات</h3><p>يومي</p></div>
     </div>
 
-    <div style="height: 250px; margin-bottom: 30px;">
+    <div class="section-title">تحليل نمو الأداء والتحصيل الرقمي</div>
+    <div class="chart-container">
         <canvas id="luxChart"></canvas>
     </div>
 
     <div class="section-title">شواهد المنصة والتدريب الميداني</div>
     <div class="gallery">
-        <div class="upload-box" onclick="trig(1)"><input type="file" id="f1" hidden accept="image/*" onchange="pre(this,1)"><span id="t1">📷 صورة واجهة المنصة</span><img id="i1"></div>
-        <div class="upload-box" onclick="trig(2)"><input type="file" id="f2" hidden accept="image/*" onchange="pre(this,2)"><span id="t2">📷 صورة من تحديات الطلاب</span><img id="i2"></div>
-        <div class="upload-box" onclick="trig(3)"><input type="file" id="f3" hidden accept="image/*" onchange="pre(this,3)"><span id="t3">📷 صورة من الموسوعة</span><img id="i3"></div>
-        <div class="upload-box" onclick="trigger(4)"><input type="file" id="f4" hidden accept="image/*" onchange="pre(this,4)"><span id="t4">📷 صورة تفاعل الطلاب</span><img id="i4"></div>
+        <div class="upload-box" onclick="trig(1)"><input type="file" id="f1" hidden accept="image/*" onchange="pre(this,1)"><span id="t1">📷 واجهة المنصة الرقمية</span><img id="i1"></div>
+        <div class="upload-box" onclick="trig(2)"><input type="file" id="f2" hidden accept="image/*" onchange="pre(this,2)"><span id="t2">📷 لوحة صدارة الطلاب</span><img id="i2"></div>
+        <div class="upload-box" onclick="trig(3)"><input type="file" id="f3" hidden accept="image/*" onchange="pre(this,3)"><span id="t3">📷 نماذج التدريب اليومي</span><img id="i3"></div>
+        <div class="upload-box" onclick="trig(4)"><input type="file" id="f4" hidden accept="image/*" onchange="pre(this,4)"><span id="t4">📷 التفاعل التقني للطلاب</span><img id="i4"></div>
     </div>
 
-    <div class="conclusion-box" style="margin-top: 30px;">
-        <div class="section-title">التوصيات والختام</div>
-        <ul style="list-style: none; padding: 0;">
-            <li>✅ تكثيف المراجعات الرقمية عبر المنصة حتى موعد الاختبارات.</li>
-            <li>✅ رصد نقاط الضعف آلياً ومعالجتها في الحصص الدراسية.</li>
-            <li>✅ الختام المتوقع لكافة المسارات: <strong>4 / 12 / 1447 هـ</strong>.</li>
-        </ul>
+    <div class="signature-section">
+        <div class="sig-box">
+            <p style="margin:0; font-weight:bold;">معد التقرير</p>
+            <div class="sig-line">أ/ عبد العزيز الفيفي</div>
+        </div>
+        <div class="sig-box">
+            <p style="margin:0; font-weight:bold;">يعتمد،، مدير المدرسة</p>
+            <div class="sig-line">أ/ ...........................</div>
+        </div>
     </div>
 
-    <p class="footer-note">تقرير رقمي مستخرج لخدمة الجودة والتميز التعليمي</p>
+    <p class="footer-note">حقوق الملكية محفوظة © أ/ عبدالعزيز الفيفي - ثانوية الأمير عبدالمجيد - 1447هـ</p>
 </div>
 
 <div class="no-print">
-    <p style="color: #1a3066; font-weight: bold;">أضف الشواهد من الاستوديو ثم اضغط زر الاستخراج</p>
-    <button class="btn-pdf" onclick="saveLuxPDF()">📥 استخراج التقرير PDF فخم</button>
+    <p style="color: #1a3066; font-weight: bold; margin-bottom: 15px;">خطوات الاستخراج: 1- ارفع الصور | 2- اضغط زر الحفظ</p>
+    <button class="btn-pdf" onclick="saveLuxPDF()">📥 استخراج التقرير الرسمي PDF</button>
 </div>
 
 <script>
-    new QRCode(document.getElementById("qrcode"), { text: "https://aztlaztl1512-bit.github.io/MAHME-/", width: 85, height: 85, colorDark : "#1a3066", colorLight : "#ffffff" });
+    // ربط التاريخ الحالي
+    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+    document.getElementById('current-date').innerText = "تحريراً في: " + new Date().toLocaleDateString('ar-SA', options);
+
+    // توليد QR Code
+    new QRCode(document.getElementById("qrcode"), { 
+        text: "https://aztlaztl1512-bit.github.io/MAHME-/", 
+        width: 90, height: 90, 
+        colorDark : "#1a3066", 
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    // وظائف رفع الصور
     function trig(id) { document.getElementById('f' + id).click(); }
     function pre(input, id) {
         if (input.files && input.files[0]) {
             var r = new FileReader();
-            r.onload = function(e) { const img = document.getElementById('i' + id); img.src = e.target.result; img.style.display = 'block'; document.getElementById('t' + id).style.display = 'none'; }
+            r.onload = function(e) { 
+                const img = document.getElementById('i' + id); 
+                img.src = e.target.result; 
+                img.style.display = 'block'; 
+                document.getElementById('t' + id).style.display = 'none'; 
+            }
             r.readAsDataURL(input.files[0]);
         }
     }
+
+    // الرسم البياني المطور (مقارنة)
     const ctx = document.getElementById('luxChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['البداية', 'الأسبوع 2', 'الأسبوع 3', 'المرحلة الحالية', 'الختام'],
-            datasets: [{ label: 'نمو أداء الطلاب', data: [10, 35, 60, 90, 100], borderColor: '#d4af37', backgroundColor: 'rgba(26, 48, 102, 0.05)', fill: true, tension: 0.4, borderWidth: 5 }]
+            labels: ['الأسبوع 1', 'الأسبوع 3', 'الأسبوع 5', 'المرحلة الحالية', 'الهدف المنشود'],
+            datasets: [
+                { 
+                    label: 'الإنجاز الفعلي للطلاب', 
+                    data: [15, 40, 65, 90, null], 
+                    borderColor: '#d4af37', 
+                    backgroundColor: 'rgba(212, 175, 55, 0.2)', 
+                    fill: true, tension: 0.4, borderWidth: 4,
+                    pointRadius: 6, pointBackgroundColor: '#1a3066'
+                },
+                { 
+                    label: 'المخطط الزمني المستهدف', 
+                    data: [10, 30, 50, 75, 100], 
+                    borderColor: '#C0C0C0', 
+                    borderDash: [5, 5], 
+                    fill: false, tension: 0.4, borderWidth: 2 
+                }
+            ]
         },
-        options: { responsive: true, maintainAspectRatio: false }
+        options: { 
+            responsive: true, 
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'top', labels: { font: { family: 'Tajawal', size: 12 } } } },
+            scales: { y: { beginAtZero: true, max: 100 } }
+        }
     });
+
+    // تصدير PDF بجودة فائقة
     function saveLuxPDF() {
+        // التحقق من الملكية قبل الطباعة (كود الارتباط الشرطي)
+        const owner = "أ/ عبدالعزيز الفيفي";
+        if(!document.body.innerText.includes(owner)) {
+            alert("خطأ في التحقق من الملكية الفكرية!");
+            return;
+        }
+
         const element = document.getElementById('report-canvas');
-        html2pdf().set({ margin: [5, 5], filename: 'تقرير_الفيفي_الفاخر.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(element).save();
+        const opt = {
+            margin: [10, 10],
+            filename: 'تقرير_التميز_الرقمي_الفيفي.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 3, useCORS: true, letterRendering: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
     }
 </script>
 
