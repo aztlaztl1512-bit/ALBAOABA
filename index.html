@@ -3,83 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقرير التميز الرقمي - أ. عبد العزيز الفيفي</title>
+    <title>أداة تقرير التميز - أ. عبد العزيز الفيفي</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #2d3436; }
-        #report { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid #1e3799; position: relative; }
-        .header { text-align: center; margin-bottom: 20px; }
-        .btn-visit { display: inline-block; background: #f39c12; color: white; padding: 10px 20px; text-decoration: none; border-radius: 50px; font-weight: bold; margin: 15px 0; border: 2px solid #e67e22; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 25px 0; }
-        .card { background: #f1f4f9; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #d1d8e0; }
-        .card p { font-size: 20px; font-weight: bold; color: #1e3799; margin: 5px 0 0; }
-        .chart-box { height: 280px; margin-bottom: 30px; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #f0f2f5; padding: 20px; }
+        #report-area { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-top: 10px solid #1e3799; }
+        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+        .btn-link { display: inline-block; background: #f39c12; color: white; padding: 8px 18px; text-decoration: none; border-radius: 50px; font-size: 14px; margin-top: 10px; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 20px 0; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #ddd; }
+        .stat-card p { font-weight: bold; color: #1e3799; margin: 5px 0 0; font-size: 18px; }
+        .chart-box { height: 250px; margin-bottom: 30px; }
+        
+        /* مربعات إضافة الصور */
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; border: 2px solid #eee; background: #eee; }
-        .no-print { text-align: center; margin-top: 30px; }
-        .btn-pdf { background: #d63031; color: white; padding: 12px 30px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .upload-box { 
+            width: 100%; height: 180px; border: 2px dashed #bbb; border-radius: 10px; 
+            display: flex; align-items: center; justify-content: center; 
+            overflow: hidden; cursor: pointer; background: #fafafa; position: relative;
+        }
+        .upload-box:hover { border-color: #1e3799; background: #f0f4ff; }
+        .upload-box img { width: 100%; height: 100%; object-fit: cover; }
+        .upload-box span { color: #888; font-size: 13px; text-align: center; padding: 10px; }
+        
+        .no-print { text-align: center; margin-top: 30px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 -5px 10px rgba(0,0,0,0.05); }
+        .btn-pdf { background: #e74c3c; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
         @media (max-width: 600px) { .gallery { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<div id="report">
+<div id="report-area">
     <div class="header">
-        <p style="font-weight: bold; color: #7f8c8d;">ثانوية الأمير عبدالمجيد</p>
+        <p style="color: #7f8c8d; margin: 0;">ثانوية الأمير عبدالمجيد</p>
         <h1 style="color: #1e3799; font-size: 22px;">تقرير إنجاز مسار التميز الرقمي (اللفظي)</h1>
         <p>الأستاذ: <strong>عبد العزيز الفيفي</strong></p>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-/" class="btn-visit">🚀 الدخول للمنصة التعليمية</a>
+        <a href="https://aztlaztl1512-bit.github.io/MAHME-/" class="btn-link">🚀 زيارة المنصة التعليمية</a>
     </div>
 
-    <div class="grid">
-        <div class="card"><h3>الطلاب</h3><p>135</p></div>
-        <div class="card"><h3>الإنجاز</h3><p>90%</p></div>
-        <div class="card"><h3>التحدي</h3><p>يومي</p></div>
-        <div class="card"><h3>الختام</h3><p>1447 هـ</p></div>
+    <div class="stats">
+        <div class="stat-card"><h3>الطلاب</h3><p>135</p></div>
+        <div class="stat-card"><h3>الإنجاز</h3><p>90%</p></div>
+        <div class="stat-card"><h3>التحدي</h3><p>يومي</p></div>
+        <div class="stat-card"><h3>الختام</h3><p>1447 هـ</p></div>
     </div>
 
-    <div class="chart-box"><canvas id="progChart"></canvas></div>
+    <div class="chart-box"><canvas id="myChart"></canvas></div>
 
-    <h3 style="color: #1e3799; border-right: 5px solid #f39c12; padding-right: 10px; margin-bottom: 15px;">📸 توثيق المنصة</h3>
+    <h3 style="color: #1e3799; font-size: 18px; border-right: 4px solid #f39c12; padding-right: 10px;">📸 اختر 4 صور من جوالك للتقرير:</h3>
     <div class="gallery">
-        <img src="1000203190.jpg" onerror="this.src='Screenshot_2026-03-29-16-27-01-382_com.android.chrome.jpg'">
-        <img src="1000203188.jpg" onerror="this.src='Screenshot_2026-03-29-16-27-26-928_com.android.chrome.jpg'">
-        <img src="1000203186.jpg" onerror="this.src='Screenshot_2026-03-29-16-27-58-755_com.android.chrome.jpg'">
-        <img src="1000203184.jpg" onerror="this.src='Screenshot_2026-03-29-16-28-13-146_com.android.chrome.jpg'">
+        <div class="upload-box" onclick="triggerInput(1)">
+            <input type="file" id="file1" hidden accept="image/*" onchange="previewImg(this, 1)">
+            <span id="text1">اضغط هنا لإضافة<br>الصورة الأولى</span>
+            <img id="img1" style="display:none">
+        </div>
+        <div class="upload-box" onclick="triggerInput(2)">
+            <input type="file" id="file2" hidden accept="image/*" onchange="previewImg(this, 2)">
+            <span id="text2">اضغط هنا لإضافة<br>الصورة الثانية</span>
+            <img id="img2" style="display:none">
+        </div>
+        <div class="upload-box" onclick="triggerInput(3)">
+            <input type="file" id="file3" hidden accept="image/*" onchange="previewImg(this, 3)">
+            <span id="text3">اضغط هنا لإضافة<br>الصورة الثالثة</span>
+            <img id="img3" style="display:none">
+        </div>
+        <div class="upload-box" onclick="triggerInput(4)">
+            <input type="file" id="file4" hidden accept="image/*" onchange="previewImg(this, 4)">
+            <span id="text4">اضغط هنا لإضافة<br>الصورة الرابعة</span>
+            <img id="img4" style="display:none">
+        </div>
     </div>
+
+    <p style="text-align: center; color: #95a5a6; font-size: 11px; margin-top: 30px;">تم إعداد التقرير لدعم التوثيق الرقمي - 1447 هـ</p>
 </div>
 
 <div class="no-print">
-    <button class="btn-pdf" onclick="savePDF()">📥 حفظ التقرير كـ PDF</button>
+    <p style="color: #666; font-size: 14px; margin-bottom: 10px;">بعد اختيار الصور، اضغط الزر بالأسفل:</p>
+    <button class="btn-pdf" onclick="makePDF()">📥 حفظ التقرير كـ PDF</button>
 </div>
 
 <script>
-    const ctx = document.getElementById('progChart').getContext('2d');
+    // وظيفة تشغيل اختيار الملف
+    function triggerInput(id) { document.getElementById('file' + id).click(); }
+
+    // وظيفة عرض الصورة المختارة فوراً
+    function previewImg(input, id) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('img' + id).src = e.target.result;
+                document.getElementById('img' + id).style.display = 'block';
+                document.getElementById('text' + id).style.display = 'none';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // رسم بياني بسيط
+    const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['أسبوع 1', 'أسبوع 2', 'أسبوع 3', 'الحالي', 'الختام'],
+            labels: ['أسبوع 1', 'أسبوع 2', 'أسبوع 3', 'الحالي', 'الهدف'],
             datasets: [{
-                label: 'نسبة الإنجاز',
-                data: [15, 35, 60, 90, 100],
+                label: 'التقدم %',
+                data: [15, 40, 65, 90, 100],
                 borderColor: '#1e3799',
-                backgroundColor: 'rgba(30, 55, 153, 0.1)',
+                backgroundColor: 'rgba(30, 55, 153, 0.05)',
                 fill: true,
                 tension: 0.4
             }]
         },
-        options: { responsive: true, maintainAspectRatio: false }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: {display: false} } }
     });
 
-    function savePDF() {
-        const element = document.getElementById('report');
+    // تحويل التقرير إلى PDF
+    function makePDF() {
+        const element = document.getElementById('report-area');
         const opt = {
             margin: 10,
-            filename: 'تقرير_الفيفي.pdf',
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 2, useCORS: true },
+            filename: 'تقرير_إنجاز_الفيفي.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
         html2pdf().set(opt).from(element).save();
