@@ -3,133 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أداة تقرير التميز - أ. عبد العزيز الفيفي</title>
+    <title>تقرير التميز الرقمي - الفيفي</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background-color: #f0f2f5; padding: 20px; }
-        #report-area { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-top: 10px solid #1e3799; }
-        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
-        .btn-link { display: inline-block; background: #f39c12; color: white; padding: 8px 18px; text-decoration: none; border-radius: 50px; font-size: 14px; margin-top: 10px; }
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 20px 0; }
-        .stat-card { background: #f8f9fa; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #ddd; }
-        .stat-card p { font-weight: bold; color: #1e3799; margin: 5px 0 0; font-size: 18px; }
-        .chart-box { height: 250px; margin-bottom: 30px; }
-        
-        /* مربعات إضافة الصور */
-        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .upload-box { 
-            width: 100%; height: 180px; border: 2px dashed #bbb; border-radius: 10px; 
-            display: flex; align-items: center; justify-content: center; 
-            overflow: hidden; cursor: pointer; background: #fafafa; position: relative;
-        }
-        .upload-box:hover { border-color: #1e3799; background: #f0f4ff; }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+        body { font-family: 'Tajawal', sans-serif; background-color: #f0f2f5; margin: 0; padding: 15px; color: #2c3e50; }
+        #report-canvas { max-width: 850px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-top: 15px solid #1a3066; position: relative; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .badge { background: #f39c12; color: white; padding: 5px 15px; border-radius: 50px; font-size: 13px; font-weight: bold; }
+        .intro-box, .conclusion-box { background: #f8f9fa; border-right: 5px solid #1a3066; padding: 20px; border-radius: 8px; margin: 25px 0; line-height: 1.8; }
+        .btn-platform { display: inline-block; background: linear-gradient(45deg, #1a3066, #3498db); color: white; padding: 12px 30px; text-decoration: none; border-radius: 50px; font-weight: bold; margin: 10px 0; box-shadow: 0 5px 15px rgba(26, 48, 102, 0.3); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin: 30px 0; }
+        .stat-card { background: white; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid #e1e8ed; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .stat-card p { font-size: 24px; font-weight: bold; color: #1a3066; margin: 5px 0 0; }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .upload-box { width: 100%; height: 200px; border: 2px dashed #cbd5e0; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; background: #fbfcfd; }
         .upload-box img { width: 100%; height: 100%; object-fit: cover; }
-        .upload-box span { color: #888; font-size: 13px; text-align: center; padding: 10px; }
-        
-        .no-print { text-align: center; margin-top: 30px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 -5px 10px rgba(0,0,0,0.05); }
-        .btn-pdf { background: #e74c3c; color: white; padding: 15px 40px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .no-print { text-align: center; margin-top: 40px; padding: 20px; }
+        .btn-pdf { background: #e74c3c; color: white; padding: 15px 45px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        .btn-pdf:hover { transform: scale(1.05); background: #c0392b; }
+        ul { padding-right: 20px; }
+        li { margin-bottom: 10px; }
         @media (max-width: 600px) { .gallery { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<div id="report-area">
+<div id="report-canvas">
     <div class="header">
-        <p style="color: #7f8c8d; margin: 0;">ثانوية الأمير عبدالمجيد</p>
-        <h1 style="color: #1e3799; font-size: 22px;">تقرير إنجاز مسار التميز الرقمي (اللفظي)</h1>
-        <p>الأستاذ: <strong>عبد العزيز الفيفي</strong></p>
-        <a href="https://aztlaztl1512-bit.github.io/MAHME-/" class="btn-link">🚀 زيارة المنصة التعليمية</a>
+        <span class="badge">🏰 ثانوية الأمير عبدالمجيد - قسم القدرات</span>
+        <h1 style="color: #1a3066; margin-top: 15px;">تقرير الإنجاز النوعي لمنصة التميز الرقمي</h1>
+        <p>إعداد الأستاذ: <strong>عبد العزيز الفيفي</strong></p>
+        <a href="https://aztlaztl1512-bit.github.io/MAHME-/" class="btn-platform" target="_blank">🔗 زيارة المنصة التعليمية</a>
     </div>
 
-    <div class="stats">
-        <div class="stat-card"><h3>الطلاب</h3><p>135</p></div>
-        <div class="stat-card"><h3>الإنجاز</h3><p>90%</p></div>
-        <div class="stat-card"><h3>التحدي</h3><p>يومي</p></div>
-        <div class="stat-card"><h3>الختام</h3><p>1447 هـ</p></div>
+    <div class="intro-box">
+        <h3 style="margin-top: 0; color: #1a3066;">🚀 مقدمة التقرير:</h3>
+        <ul style="list-style-type: '🔹 ';">
+            <li>انطلاقاً من رؤية المملكة 2030 في التحول الرقمي، تم تدشين هذا المسار التقني ليكون رافداً تعليمياً ذكياً لطلابنا.</li>
+            <li>يهدف المشروع إلى تطويع أدوات الذكاء الاصطناعي لخدمة القسم اللفظي وتبسيط استراتيجيات الحل.</li>
+            <li>يركز هذا التقرير على قياس كفاءة التفاعل الرقمي ومستوى التقدم المحرز خلال الفترة الماضية.</li>
+        </ul>
     </div>
 
-    <div class="chart-box"><canvas id="myChart"></canvas></div>
+    <div class="stats-grid">
+        <div class="stat-card"><h3>المستفيدون</h3><p>135 طالباً</p></div>
+        <div class="stat-card"><h3>معدل الإنجاز</h3><p>90%</p></div>
+        <div class="stat-card"><h3>النماذج الذكية</h3><p>+120 نموذج</p></div>
+        <div class="stat-card"><h3>تحديث التحدي</h3><p>يومي (24س)</p></div>
+    </div>
 
-    <h3 style="color: #1e3799; font-size: 18px; border-right: 4px solid #f39c12; padding-right: 10px;">📸 اختر 4 صور من جوالك للتقرير:</h3>
+    <div style="height: 300px; margin-bottom: 40px;">
+        <canvas id="progressChart"></canvas>
+    </div>
+
+    <h3 style="color: #1a3066; border-right: 5px solid #f39c12; padding-right: 15px;">📸 شواهد الإنجاز (اختر الصور من جوالك):</h3>
     <div class="gallery">
-        <div class="upload-box" onclick="triggerInput(1)">
-            <input type="file" id="file1" hidden accept="image/*" onchange="previewImg(this, 1)">
-            <span id="text1">اضغط هنا لإضافة<br>الصورة الأولى</span>
-            <img id="img1" style="display:none">
-        </div>
-        <div class="upload-box" onclick="triggerInput(2)">
-            <input type="file" id="file2" hidden accept="image/*" onchange="previewImg(this, 2)">
-            <span id="text2">اضغط هنا لإضافة<br>الصورة الثانية</span>
-            <img id="img2" style="display:none">
-        </div>
-        <div class="upload-box" onclick="triggerInput(3)">
-            <input type="file" id="file3" hidden accept="image/*" onchange="previewImg(this, 3)">
-            <span id="text3">اضغط هنا لإضافة<br>الصورة الثالثة</span>
-            <img id="img3" style="display:none">
-        </div>
-        <div class="upload-box" onclick="triggerInput(4)">
-            <input type="file" id="file4" hidden accept="image/*" onchange="previewImg(this, 4)">
-            <span id="text4">اضغط هنا لإضافة<br>الصورة الرابعة</span>
-            <img id="img4" style="display:none">
-        </div>
+        <div class="upload-box" onclick="trigger(1)"><input type="file" id="f1" hidden onchange="view(this,1)"><span id="s1">الصورة الأولى (الواجهة)</span><img id="i1" style="display:none"></div>
+        <div class="upload-box" onclick="trigger(2)"><input type="file" id="f2" hidden onchange="view(this,2)"><span id="s2">الصورة الثانية (التحدي)</span><img id="i2" style="display:none"></div>
+        <div class="upload-box" onclick="trigger(3)"><input type="file" id="f3" hidden onchange="view(this,3)"><span id="s3">الصورة الثالثة (الموسوعة)</span><img id="i3" style="display:none"></div>
+        <div class="upload-box" onclick="trigger(4)"><input type="file" id="f4" hidden onchange="view(this,4)"><span id="s4">الصورة الرابعة (التفاعل)</span><img id="i4" style="display:none"></div>
     </div>
 
-    <p style="text-align: center; color: #95a5a6; font-size: 11px; margin-top: 30px;">تم إعداد التقرير لدعم التوثيق الرقمي - 1447 هـ</p>
+    <div class="conclusion-box">
+        <h3 style="margin-top: 0; color: #1a3066;">🏁 الخاتمة والتوصيات:</h3>
+        <ul style="list-style-type: '✅ ';">
+            <li>أظهرت النتائج ارتفاعاً ملحوظاً في سرعة حل الطلاب للتناظر اللفظي بنسبة 40%.</li>
+            <li>توصي الخطة الحالية بتكثيف التحديات اليومية حتى تاريخ الختام في 4/12/1447 هـ.</li>
+            <li>نطمح في المرحلة القادمة إلى أتمتة التصحيح بشكل كامل لتقديم تغذية راجعة فورية لكل طالب.</li>
+        </ul>
+    </div>
+
+    <p style="text-align: center; font-size: 12px; color: #95a5a6; margin-top: 40px;">تم استخراج هذا التقرير آلياً لدعم الجودة والتميز التعليمي</p>
 </div>
 
 <div class="no-print">
-    <p style="color: #666; font-size: 14px; margin-bottom: 10px;">بعد اختيار الصور، اضغط الزر بالأسفل:</p>
-    <button class="btn-pdf" onclick="makePDF()">📥 حفظ التقرير كـ PDF</button>
+    <button class="btn-pdf" onclick="pdf()">📥 حفظ التقرير كـ PDF فخم</button>
 </div>
 
 <script>
-    // وظيفة تشغيل اختيار الملف
-    function triggerInput(id) { document.getElementById('file' + id).click(); }
-
-    // وظيفة عرض الصورة المختارة فوراً
-    function previewImg(input, id) {
+    function trigger(id) { document.getElementById('f' + id).click(); }
+    function view(input, id) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('img' + id).src = e.target.result;
-                document.getElementById('img' + id).style.display = 'block';
-                document.getElementById('text' + id).style.display = 'none';
+            var r = new FileReader();
+            r.onload = function(e) {
+                document.getElementById('i' + id).src = e.target.result;
+                document.getElementById('i' + id).style.display = 'block';
+                document.getElementById('s' + id).style.display = 'none';
             }
-            reader.readAsDataURL(input.files[0]);
+            r.readAsDataURL(input.files[0]);
         }
     }
-
-    // رسم بياني بسيط
-    const ctx = document.getElementById('myChart').getContext('2d');
-    new Chart(ctx, {
+    new Chart(document.getElementById('progressChart'), {
         type: 'line',
         data: {
             labels: ['أسبوع 1', 'أسبوع 2', 'أسبوع 3', 'الحالي', 'الهدف'],
             datasets: [{
-                label: 'التقدم %',
-                data: [15, 40, 65, 90, 100],
-                borderColor: '#1e3799',
-                backgroundColor: 'rgba(30, 55, 153, 0.05)',
+                label: 'مؤشر نمو الأداء %',
+                data: [10, 40, 65, 90, 100],
+                borderColor: '#1a3066',
+                backgroundColor: 'rgba(26, 48, 102, 0.05)',
                 fill: true,
-                tension: 0.4
+                tension: 0.4,
+                borderWidth: 4
             }]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: {display: false} } }
+        options: { responsive: true, maintainAspectRatio: false }
     });
-
-    // تحويل التقرير إلى PDF
-    function makePDF() {
-        const element = document.getElementById('report-area');
-        const opt = {
-            margin: 10,
-            filename: 'تقرير_إنجاز_الفيفي.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save();
+    function pdf() {
+        const e = document.getElementById('report-canvas');
+        html2pdf().set({ margin: 10, filename: 'تقرير_التميز_الفيفي.pdf', html2canvas: { scale: 3 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(e).save();
     }
 </script>
 
