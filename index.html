@@ -18,14 +18,14 @@
             --pure-black: #000000;
         }
 
-        body { font-family: 'Tajawal', sans-serif; background-color: #e9ecef; margin: 0; padding: 0; color: var(--pure-black); }
+        body { font-family: 'Tajawal', sans-serif; background-color: #525659; margin: 0; padding: 0; color: var(--pure-black); }
         
-        /* ضبط الحاوية بمقاس A4 حقيقي */
-        #report-content { width: 210mm; margin: auto; background: #e9ecef; }
+        /* إعداد الحاوية الأساسية بمقاسات A4 دولية */
+        #report-content { width: 210mm; margin: 20px auto; background: #525659; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
 
         .page {
             width: 210mm;
-            height: 296mm; /* ارتفاع A4 بالضبط */
+            height: 297mm; /* ارتفاع A4 بالضبط */
             padding: 15mm;
             background: white;
             box-sizing: border-box;
@@ -33,71 +33,83 @@
             border-bottom: 10mm solid var(--accent-color);
             position: relative;
             overflow: hidden;
-            page-break-after: always; /* إجبار الانتقال لصفحة جديدة */
+            display: flex;
+            flex-direction: column;
         }
 
-        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 15px; }
-        h1 { color: var(--title-color); font-weight: 900; font-size: 22px; margin: 0; }
-        .author-name { color: var(--primary-color); font-size: 18px; font-weight: 900; }
+        /* لضمان كسر الصفحة في الـ PDF */
+        .page-break { page-break-after: always; }
 
-        .qr-wrapper { text-align: center; border: 1.5px solid var(--accent-color); padding: 5px; border-radius: 10px; background: #fff; width: 80px; }
-        .qr-wrapper p { font-size: 9px; margin-top: 3px; font-weight: 900; color: var(--primary-color); }
+        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 3px double #000; padding-bottom: 15px; }
+        h1 { color: var(--title-color); font-weight: 900; font-size: 24px; margin: 0; }
+        .author-name { color: var(--primary-color); font-size: 19px; font-weight: 900; }
+
+        .qr-wrapper { text-align: center; border: 2px solid var(--accent-color); padding: 5px; border-radius: 10px; background: #fff; width: 85px; }
+        .qr-wrapper p { font-size: 10px; margin-top: 5px; font-weight: 900; color: var(--primary-color); }
 
         .director-message { 
-            background: #fffcf0; border-right: 8px solid var(--title-color); 
-            padding: 15px; border-radius: 10px; margin-bottom: 20px; line-height: 1.6; font-size: 15px;
-            color: var(--pure-black); font-weight: 700; border: 1px solid #eee; border-right: 8px solid var(--title-color);
+            background: #fffcf0; border-right: 10px solid var(--title-color); 
+            padding: 20px; border-radius: 12px; margin-bottom: 25px; line-height: 1.8; font-size: 16px;
+            color: var(--pure-black); font-weight: 700; border: 1px solid #ddd; border-right: 10px solid var(--title-color);
         }
 
-        .section-title { color: var(--title-color); font-size: 18px; font-weight: 900; margin: 15px 0 10px; display: flex; align-items: center; border-bottom: 1px solid #000; }
-        .section-title::before { content: ""; width: 8px; height: 8px; background: var(--accent-color); display: inline-block; margin-left: 8px; }
+        .section-title { color: var(--title-color); font-size: 20px; font-weight: 900; margin: 15px 0 12px; display: flex; align-items: center; border-bottom: 1px solid #000; padding-bottom: 5px; }
+        .section-title::before { content: ""; width: 10px; height: 10px; background: var(--accent-color); display: inline-block; margin-left: 10px; }
 
-        .step-item { background: #f9f9f9; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-right: 4px solid var(--primary-color); border: 1px solid #ddd; border-right: 4px solid var(--primary-color); }
-        .step-item h4 { margin: 0 0 5px 0; color: var(--primary-color); font-size: 16px; font-weight: 900; }
-        .step-item p { margin: 0; font-size: 14px; color: var(--pure-black); font-weight: 700; }
+        .step-item { background: #f9f9f9; padding: 12px; border-radius: 10px; margin-bottom: 12px; border-right: 5px solid var(--primary-color); border: 1px solid #ddd; border-right: 5px solid var(--primary-color); }
+        .step-item h4 { margin: 0 0 5px 0; color: var(--primary-color); font-size: 17px; font-weight: 900; }
+        .step-item p { margin: 0; font-size: 15px; color: var(--pure-black); font-weight: 700; }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: auto; padding-bottom: 10mm; }
         .stat-card { 
-            background: var(--primary-color); color: white; padding: 15px 5px; border-radius: 10px; 
-            text-align: center; border-bottom: 4px solid var(--accent-color);
+            background: var(--primary-color); color: white; padding: 18px 5px; border-radius: 12px; 
+            text-align: center; border-bottom: 5px solid var(--accent-color);
         }
-        .stat-card h3 { font-size: 11px; margin: 0; font-weight: 900; }
-        .stat-card p { font-size: 18px; font-weight: 900; margin: 5px 0 0; color: var(--accent-color); }
+        .stat-card h3 { font-size: 12px; margin: 0; font-weight: 900; }
+        .stat-card p { font-size: 20px; font-weight: 900; margin: 5px 0 0; color: var(--accent-color); }
 
-        .chart-container { background: #fafafa; padding: 10px; border-radius: 15px; height: 280px; border: 1.5px solid #eee; margin-bottom: 20px; }
+        .chart-container { background: #fafafa; padding: 15px; border-radius: 20px; height: 350px; border: 2px solid #eee; margin-bottom: 25px; }
 
-        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .upload-box { 
-            height: 160px; border: 1.5px dashed #000; border-radius: 15px; 
+            height: 180px; border: 2px dashed #000; border-radius: 20px; 
             display: flex; align-items: center; justify-content: center; overflow: hidden; 
             cursor: pointer; background: #fff;
         }
         .upload-box img { width: 100%; height: 100%; object-fit: contain; }
-        .upload-box span { color: var(--pure-black); font-size: 11px; font-weight: 900; text-align: center; }
+        .upload-box span { color: var(--pure-black); font-size: 13px; font-weight: 900; text-align: center; }
 
-        .signature-section { display: flex; justify-content: space-between; margin-top: 40px; padding: 20px; background: #fdfdfd; border-radius: 10px; border: 1.5px solid #eee; }
+        .signature-section { display: flex; justify-content: space-between; margin-top: auto; padding: 25px; background: #fdfdfd; border-radius: 15px; border: 2px solid #eee; margin-bottom: 5mm; }
         .sig-box { text-align: center; width: 45%; }
-        .sig-line { border-top: 2.5px solid var(--primary-color); margin-top: 35px; padding-top: 8px; font-weight: 900; color: var(--pure-black); font-size: 16px; }
+        .sig-line { border-top: 3px solid var(--primary-color); margin-top: 40px; padding-top: 10px; font-weight: 900; color: var(--pure-black); font-size: 18px; }
 
-        .footer-note { text-align: center; font-size: 12px; color: var(--pure-black); font-weight: 900; margin-top: 20px; }
+        .footer-note { text-align: center; font-size: 13px; color: var(--pure-black); font-weight: 900; padding-bottom: 5mm; }
 
-        .no-print { text-align: center; padding: 20px; background: #e9ecef; position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+        /* أزرار التحكم - لا تظهر في الطباعة */
+        .no-print { text-align: center; padding: 20px; position: fixed; top: 20px; left: 20px; z-index: 1000; }
         .btn-pdf { 
-            background: #000; color: white; padding: 15px 40px; 
-            border: none; border-radius: 50px; font-weight: 900; cursor: pointer; font-size: 18px; border: 2px solid var(--accent-color);
+            background: #000; color: white; padding: 15px 30px; 
+            border: 2px solid var(--accent-color); border-radius: 8px; font-weight: 900; cursor: pointer; font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
+        @media print { .no-print { display: none; } }
     </style>
 </head>
 <body>
 
+<div class="no-print">
+    <button class="btn-pdf" onclick="saveLuxPDF()">📥 استخراج التقرير الرسمي (PDF)</button>
+    <p style="color: white; font-size: 12px; margin-top: 10px;">يفضل استخدام متصفح Chrome</p>
+</div>
+
 <div id="report-content">
     <!-- الصفحة الأولى -->
-    <div class="page">
+    <div class="page page-break">
         <div class="header-section">
             <div class="header-text">
                 <h1>تقرير إنجاز مبادرة التميز الرقمي</h1>
                 <p class="author-name">الأستاذ: عبد العزيز الفيفي</p>
-                <p style="color: #000; font-weight: 900; margin: 0; font-size: 14px;">ثانوية الأمير عبدالمجيد | الرياض</p>
+                <p style="color: #000; font-weight: 900; margin: 0; font-size: 15px;">ثانوية الأمير عبدالمجيد | الرياض</p>
             </div>
             <div class="qr-wrapper">
                 <div id="qrcode"></div>
@@ -134,7 +146,7 @@
         <div class="stats-grid">
             <div class="stat-card"><h3>👤 المستفيدون</h3><p>135 طالباً</p></div>
             <div class="stat-card"><h3>📊 نسبة الإنجاز</h3><p>90%</p></div>
-            <div class="stat-card"><h3>📂 بنك الأسئلة</h3><p>+120 نموذج</p></div>
+            <div class="stat-card"><h3>📂 بنك الأسئلة</h3><p>120 نموذج</p></div>
             <div class="stat-card"><h3>⚡ التحديث</h3><p>يومي</p></div>
         </div>
     </div>
@@ -147,11 +159,11 @@
         </div>
 
         <div class="section-title">شواهد المنصة والتدريب الميداني</div>
-        <div class="gallery" style="margin-top:10px;">
-            <div class="upload-box" onclick="trig(1)"><input type="file" id="f1" hidden accept="image/*" onchange="pre(this,1)"><span id="t1">📷 صورة واجهة المنصة</span><img id="i1" style="display:none"></div>
-            <div class="upload-box" onclick="trig(2)"><input type="file" id="f2" hidden accept="image/*" onchange="pre(this,2)"><span id="t2">📷 صورة لوحة الصدارة</span><img id="i2" style="display:none"></div>
-            <div class="upload-box" onclick="trig(3)"><input type="file" id="f3" hidden accept="image/*" onchange="pre(this,3)"><span id="t3">📷 صورة نماذج التدريب</span><img id="i3" style="display:none"></div>
-            <div class="upload-box" onclick="trig(4)"><input type="file" id="f4" hidden accept="image/*" onchange="pre(this,4)"><span id="t4">📷 صورة تفاعل الطلاب</span><img id="i4" style="display:none"></div>
+        <div class="gallery">
+            <div class="upload-box" onclick="trig(1)"><input type="file" id="f1" hidden accept="image/*" onchange="pre(this,1)"><span id="t1">📷 صورة واجهة المنصة الرقمية</span><img id="i1" style="display:none"></div>
+            <div class="upload-box" onclick="trig(2)"><input type="file" id="f2" hidden accept="image/*" onchange="pre(this,2)"><span id="t2">📷 صورة لوحة صدارة الطلاب</span><img id="i2" style="display:none"></div>
+            <div class="upload-box" onclick="trig(3)"><input type="file" id="f3" hidden accept="image/*" onchange="pre(this,3)"><span id="t3">📷 صورة نماذج التدريب اليومي</span><img id="i3" style="display:none"></div>
+            <div class="upload-box" onclick="trig(4)"><input type="file" id="f4" hidden accept="image/*" onchange="pre(this,4)"><span id="t4">📷 صورة تفاعل الطلاب الميداني</span><img id="i4" style="display:none"></div>
         </div>
 
         <div class="signature-section">
@@ -168,13 +180,11 @@
     </div>
 </div>
 
-<div class="no-print">
-    <button class="btn-pdf" onclick="saveLuxPDF()">📥 استخراج التقرير (صفحتان بالضبط PDF)</button>
-</div>
-
 <script>
-    new QRCode(document.getElementById("qrcode"), { text: "https://aztlaztl1512-bit.github.io/MAHME-/", width: 70, height: 70, colorDark : "#000000" });
+    // QR Code
+    new QRCode(document.getElementById("qrcode"), { text: "https://aztlaztl1512-bit.github.io/MAHME-/", width: 80, height: 80, colorDark : "#000000" });
 
+    // صور
     function trig(id) { document.getElementById('f' + id).click(); }
     function pre(input, id) {
         if (input.files && input.files[0]) {
@@ -188,40 +198,39 @@
         }
     }
 
+    // الرسم البياني
     const ctx = document.getElementById('luxChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
             labels: ['1', '2', '3', 'الحالي', 'المستهدف'],
             datasets: [{ 
-                label: 'مستوى التحصيل', data: [15, 40, 65, 90, 100], 
+                label: 'تطور التحصيل الدراسي', data: [15, 40, 65, 90, 100], 
                 borderColor: '#1a3066', backgroundColor: 'rgba(0, 0, 0, 0.05)', 
-                fill: true, tension: 0.4, borderWidth: 4, pointRadius: 5
+                fill: true, tension: 0.4, borderWidth: 5, pointRadius: 6
             }]
         },
         options: { 
             responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { labels: { color: '#000', font: { weight: 'bold' } } } },
-            scales: { x: { ticks: { color: '#000', font: { weight: 'bold' } } }, y: { ticks: { color: '#000', font: { weight: 'bold' } } } }
+            plugins: { legend: { labels: { color: '#000', font: { weight: 'bold', size: 14 } } } },
+            scales: {
+                x: { ticks: { color: '#000', font: { weight: 'bold' } } },
+                y: { ticks: { color: '#000', font: { weight: 'bold' } } }
+            }
         }
     });
 
+    // الحفظ الرسمي
     function saveLuxPDF() {
         const element = document.getElementById('report-content');
         const opt = {
             margin: 0,
-            filename: 'تقرير_الفيفي_النهائي.pdf',
+            filename: 'تقرير_الفيفي_الرياض_الرسمي.pdf',
             image: { type: 'jpeg', quality: 1.0 },
             html2canvas: { scale: 2, useCORS: true, logging: false },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
-        // تحسين لضمان صفحتين فقط
-        html2pdf().from(element).set(opt).toPdf().get('pdf').then(function (pdf) {
-            var totalPages = pdf.internal.getNumberOfPages();
-            for (var i = totalPages; i > 2; i--) {
-                pdf.deletePage(i); // حذف أي صفحات زائدة ناتجة عن خطأ في التفسير
-            }
-        }).save();
+        html2pdf().set(opt).from(element).save();
     }
 </script>
 
