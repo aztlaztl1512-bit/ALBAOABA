@@ -5,106 +5,83 @@
     <title>تقرير التميز الرقمي - الرياض - أ/ عبدالعزيز الفيفي</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- مكتبة تحويل العناصر إلى صور -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
         
         :root {
-            --primary: #1a3066; 
-            --accent: #d4af37;  
-            --title: #800000;   
-            --black: #000000;
+            --primary: #1a3066; --accent: #d4af37; --title: #800000; --black: #000000;
         }
 
-        /* تنسيق العرض على الشاشة */
-        body { background: #525659; font-family: 'Tajawal', sans-serif; margin: 0; padding: 20px; }
+        body { background: #525659; font-family: 'Tajawal', sans-serif; margin: 0; padding: 20px; color: var(--black); }
         
         .report-wrapper { width: 210mm; margin: 0 auto; }
 
         .page {
-            width: 210mm;
-            height: 296mm; /* مقاس A4 دقيق */
-            background: white;
-            padding: 15mm;
-            box-sizing: border-box;
-            border-top: 15mm solid var(--primary);
-            border-bottom: 10mm solid var(--accent);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            margin-bottom: 10mm;
-            page-break-after: always;
+            width: 210mm; height: 297mm; background: white; padding: 15mm;
+            box-sizing: border-box; border-top: 15mm solid var(--primary);
+            border-bottom: 10mm solid var(--accent); position: relative;
+            display: flex; flex-direction: column; margin-bottom: 20px;
         }
 
-        /* تحسين الوضوح والخطوط للطباعة */
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px double var(--black); padding-bottom: 15px; margin-bottom: 25px; }
         h1 { color: var(--title); font-weight: 900; font-size: 26px; margin: 0; }
         .author-info { color: var(--primary); font-size: 19px; font-weight: 900; margin-top: 5px; }
         
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px double var(--black); padding-bottom: 15px; margin-bottom: 25px; }
-        
-        .qr-box { text-align: center; border: 2px solid var(--accent); padding: 5px; border-radius: 10px; background: #fff; }
+        .qr-box { text-align: center; border: 2px solid var(--accent); padding: 5px; border-radius: 10px; background: #fff; width: 85px; }
         .qr-box p { font-size: 10px; font-weight: 900; margin: 5px 0 0; }
 
-        .message-box { 
-            background: #fffcf0; border-right: 10px solid var(--title); padding: 20px; 
-            border-radius: 10px; margin-bottom: 30px; border-left: 1px solid #ddd; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
-        }
-        .message-box p { font-size: 17px; line-height: 1.8; color: var(--black); font-weight: 700; text-align: justify; margin: 0; }
+        .message-box { background: #fffcf0; border-right: 10px solid var(--title); padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #ddd; border-right: 10px solid var(--title); }
+        .message-box p { font-size: 17px; line-height: 1.8; font-weight: 700; text-align: justify; margin: 0; }
 
         .section-title { color: var(--title); font-size: 21px; font-weight: 900; border-bottom: 2px solid var(--black); padding-bottom: 5px; margin: 20px 0 15px; display: flex; align-items: center; }
         .section-title::before { content: ""; width: 10px; height: 10px; background: var(--accent); margin-left: 10px; }
 
         .step { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 12px; border-right: 5px solid var(--primary); border: 1px solid #ddd; border-right: 5px solid var(--primary); }
         .step h4 { margin: 0 0 5px; color: var(--primary); font-size: 18px; font-weight: 900; }
-        .step p { margin: 0; font-size: 15px; color: var(--black); font-weight: 700; }
+        .step p { margin: 0; font-size: 15px; font-weight: 700; }
 
-        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: auto; padding-bottom: 10mm; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: auto; padding-bottom: 5mm; }
         .card { background: var(--primary); color: white; text-align: center; padding: 15px 5px; border-radius: 10px; border-bottom: 5px solid var(--accent); }
-        .card h3 { font-size: 13px; margin: 0; font-weight: 900; }
+        .card h3 { font-size: 12px; margin: 0; font-weight: 900; }
         .card p { font-size: 20px; font-weight: 900; margin: 5px 0 0; color: var(--accent); }
 
-        .chart-box { background: #fafafa; border: 2px solid #eee; border-radius: 15px; height: 350px; padding: 15px; margin-bottom: 25px; }
+        .chart-box { background: #fafafa; border: 2px solid #eee; border-radius: 15px; height: 320px; padding: 15px; margin-bottom: 20px; }
 
-        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .upload { height: 180px; border: 2px dashed var(--black); border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #fff; overflow: hidden; }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .upload { height: 170px; border: 2px dashed var(--black); border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #fff; overflow: hidden; }
         .upload img { width: 100%; height: 100%; object-fit: contain; }
-        .upload span { font-weight: 900; font-size: 13px; color: var(--black); }
+        .upload span { font-weight: 900; font-size: 12px; }
 
-        .signatures { display: flex; justify-content: space-between; margin-top: auto; padding: 25px; border: 2px solid #eee; border-radius: 15px; margin-bottom: 5mm; background: #fdfdfd; }
+        .signatures { display: flex; justify-content: space-between; margin-top: auto; padding: 25px; border: 2px solid #eee; border-radius: 15px; background: #fdfdfd; }
         .sig-item { text-align: center; width: 45%; }
-        .sig-line { border-top: 3px solid var(--primary); margin-top: 40px; padding-top: 10px; font-weight: 900; font-size: 18px; color: var(--black); }
+        .sig-line { border-top: 3px solid var(--primary); margin-top: 35px; padding-top: 10px; font-weight: 900; font-size: 18px; }
 
-        .footer { text-align: center; font-weight: 900; font-size: 14px; padding-bottom: 5mm; }
+        .footer { text-align: center; font-weight: 900; font-size: 14px; margin-top: 15px; }
 
         /* أزرار التحكم */
-        .controls { position: fixed; top: 20px; left: 20px; z-index: 1000; background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
-        .btn { background: #000; color: #fff; border: 2px solid var(--accent); padding: 12px 25px; font-weight: 900; cursor: pointer; border-radius: 5px; font-family: 'Tajawal'; }
-
-        /* إعدادات الطباعة الحقيقية */
-        @media print {
-            body { background: none; padding: 0; }
-            .report-wrapper { width: 210mm; margin: 0; }
-            .page { margin: 0; box-shadow: none; border-top: 15mm solid var(--primary) !important; -webkit-print-color-adjust: exact; }
-            .controls { display: none; }
-        }
+        .controls { position: fixed; top: 20px; left: 20px; z-index: 1000; background: #fff; padding: 15px; border-radius: 10px; border: 2px solid var(--accent); }
+        .btn { background: #000; color: #fff; padding: 12px 20px; font-weight: 900; cursor: pointer; border-radius: 5px; margin-bottom: 10px; width: 100%; display: block; font-family: 'Tajawal'; }
     </style>
 </head>
 <body>
 
 <div class="controls">
-    <button class="btn" onclick="window.print()">📥 استخراج التقرير PDF</button>
-    <p style="font-size: 11px; margin-top: 8px;">1. ارفع الصور أولاً<br>2. اختر حفظ بتنسيق PDF<br>3. الهوامش: بلا (None)</p>
+    <button class="btn" onclick="saveAsImage('page1', 'التقرير_الصفحة_1')">📸 حفظ الصفحة 1 كصورة</button>
+    <button class="btn" onclick="saveAsImage('page2', 'التقرير_الصفحة_2')">📸 حفظ الصفحة 2 كصورة</button>
+    <p style="font-size: 11px; margin: 0; font-weight: bold;">بعد الحفظ، يمكنك دمج الصورتين في ملف PDF واحد بسهولة.</p>
 </div>
 
 <div class="report-wrapper">
     <!-- الصفحة الأولى -->
-    <div class="page">
+    <div class="page" id="page1">
         <div class="header">
             <div>
                 <h1>تقرير إنجاز مبادرة التميز الرقمي</h1>
                 <div class="author-info">الأستاذ: عبد العزيز الفيفي</div>
-                <div style="font-weight: 900; font-size: 15px; margin-top: 3px;">ثانوية الأمير عبدالمجيد | الرياض</div>
+                <div style="font-weight: 900; font-size: 15px;">ثانوية الأمير عبدالمجيد | الرياض</div>
             </div>
             <div class="qr-box">
                 <div id="qrcode"></div>
@@ -113,10 +90,7 @@
         </div>
 
         <div class="message-box">
-            <p>
-                أضع بين أيديكم ثمرة الجهد الميداني والتقني لطلابنا؛ فبالتوازي مع شرح مهارات القدرات (القسم اللفظي) داخل الفصل الدراسي، نعلن بحمد الله عن إتمام شرح وتدريب القسم الثاني من المنهج بنجاح. 
-                ولضمان ديمومة التعلم، أطلقنا هذه المنصة الرقمية لتكون جسراً يربط الطالب بالمراجعة المستمرة والتدريب المكثف، وتهيئتهم للاستعداد الأمثل وتحقيق أعلى الدرجات بإذن الله.
-            </p>
+            <p>أضع بين أيديكم ثمرة الجهد الميداني والتقني لطلابنا؛ فبالتوازي مع شرح مهارات القدرات (القسم اللفظي) داخل الفصل الدراسي، نعلن بحمد الله عن إتمام شرح وتدريب القسم الثاني من المنهج بنجاح. ولضمان ديمومة التعلم، أطلقنا هذه المنصة الرقمية لتكون جسراً يربط الطالب بالمراجعة المستمرة والتدريب المكثف، وتهيئتهم للاستعداد الأمثل وتحقيق أعلى الدرجات بإذن الله.ه.</p>
         </div>
 
         <div class="section-title">تفاصيل الإنجاز والمسار التقني</div>
@@ -146,7 +120,7 @@
     </div>
 
     <!-- الصفحة الثانية -->
-    <div class="page">
+    <div class="page" id="page2">
         <div class="section-title">تحليل نمو الأداء والتحصيل الرقمي</div>
         <div class="chart-box">
             <canvas id="myChart"></canvas>
@@ -175,21 +149,17 @@
 </div>
 
 <script>
-    // توليد الـ QR
-    new QRCode(document.getElementById("qrcode"), { 
-        text: "https://aztlaztl1512-bit.github.io/MAHME-/", 
-        width: 80, height: 80, colorDark: "#000000" 
-    });
+    // QR Code
+    new QRCode(document.getElementById("qrcode"), { text: "https://aztlaztl1512-bit.github.io/MAHME-/", width: 85, height: 85, colorDark: "#000000" });
 
-    // التعامل مع الصور
+    // صور
     function trig(id) { document.getElementById('f' + id).click(); }
     function pre(input, id) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
                 const img = document.getElementById('i' + id);
-                img.src = e.target.result;
-                img.style.display = 'block';
+                img.src = e.target.result; img.style.display = 'block';
                 document.getElementById('t' + id).style.display = 'none';
             }
             reader.readAsDataURL(input.files[0]);
@@ -203,23 +173,32 @@
         data: {
             labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الحالي', 'المستهدف'],
             datasets: [{
-                label: 'معدل التحصيل الدراسي',
-                data: [15, 40, 65, 90, 100],
-                borderColor: '#1a3066',
-                backgroundColor: 'rgba(0,0,0,0.05)',
+                label: 'معدل التحصيل', data: [15, 40, 65, 90, 100],
+                borderColor: '#1a3066', backgroundColor: 'rgba(0,0,0,0.05)',
                 fill: true, tension: 0.4, borderWidth: 5, pointRadius: 6
             }]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: false,
+            responsive: true, maintainAspectRatio: false,
             plugins: { legend: { labels: { color: '#000', font: { weight: 'bold', size: 14 } } } },
-            scales: {
-                x: { ticks: { color: '#000', font: { weight: 'bold' } } },
-                y: { ticks: { color: '#000', font: { weight: 'bold' } } }
-            }
+            scales: { x: { ticks: { color: '#000', font: { weight: 'bold' } } }, y: { ticks: { color: '#000', font: { weight: 'bold' } } } }
         }
     });
+
+    // وظيفة الحفظ كصورة عالية الجودة
+    function saveAsImage(elementId, fileName) {
+        const element = document.getElementById(elementId);
+        html2canvas(element, {
+            scale: 3, // دقة عالية جداً (3 أضعاف)
+            useCORS: true,
+            backgroundColor: "#ffffff"
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = fileName + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    }
 </script>
 
 </body>
