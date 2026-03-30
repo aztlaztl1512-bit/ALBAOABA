@@ -15,75 +15,76 @@
             --primary-color: #1a3066; 
             --accent-color: #d4af37;  
             --title-color: #800000;   
-            --pure-black: #000000; /* أسود حاد للطباعة */
+            --pure-black: #000000;
         }
 
         body { font-family: 'Tajawal', sans-serif; background-color: #e9ecef; margin: 0; padding: 0; color: var(--pure-black); }
         
-        #report-content { width: 800px; margin: auto; }
+        /* ضبط الحاوية بمقاس A4 حقيقي */
+        #report-content { width: 210mm; margin: auto; background: #e9ecef; }
 
         .page {
-            width: 800px;
-            min-height: 1120px;
-            padding: 50px;
+            width: 210mm;
+            height: 296mm; /* ارتفاع A4 بالضبط */
+            padding: 15mm;
             background: white;
             box-sizing: border-box;
-            border-top: 20px solid var(--primary-color);
-            border-bottom: 15px solid var(--accent-color);
-            margin-bottom: 30px;
+            border-top: 15mm solid var(--primary-color);
+            border-bottom: 10mm solid var(--accent-color);
             position: relative;
-            page-break-after: always;
+            overflow: hidden;
+            page-break-after: always; /* إجبار الانتقال لصفحة جديدة */
         }
 
-        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 3px double #000; padding-bottom: 20px; }
-        h1 { color: var(--title-color); font-weight: 900; font-size: 26px; margin: 0; }
-        .author-name { color: var(--primary-color); font-size: 20px; font-weight: 900; margin-top: 5px; }
+        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 15px; }
+        h1 { color: var(--title-color); font-weight: 900; font-size: 22px; margin: 0; }
+        .author-name { color: var(--primary-color); font-size: 18px; font-weight: 900; }
 
-        .qr-wrapper { text-align: center; border: 2px solid var(--accent-color); padding: 10px; border-radius: 12px; background: #fff; }
-        .qr-wrapper p { font-size: 11px; margin-top: 5px; font-weight: 900; color: var(--primary-color); }
+        .qr-wrapper { text-align: center; border: 1.5px solid var(--accent-color); padding: 5px; border-radius: 10px; background: #fff; width: 80px; }
+        .qr-wrapper p { font-size: 9px; margin-top: 3px; font-weight: 900; color: var(--primary-color); }
 
         .director-message { 
-            background: #fffcf0; border-right: 10px solid var(--title-color); 
-            padding: 30px; border-radius: 15px; margin-bottom: 30px; line-height: 1.9; font-size: 17px;
-            color: var(--pure-black); font-weight: 700; /* خط عريض وواضح */
+            background: #fffcf0; border-right: 8px solid var(--title-color); 
+            padding: 15px; border-radius: 10px; margin-bottom: 20px; line-height: 1.6; font-size: 15px;
+            color: var(--pure-black); font-weight: 700; border: 1px solid #eee; border-right: 8px solid var(--title-color);
         }
 
-        .section-title { color: var(--title-color); font-size: 22px; font-weight: 900; margin: 30px 0 20px; display: flex; align-items: center; border-bottom: 1px solid #000; padding-bottom: 5px; }
-        .section-title::before { content: ""; width: 12px; height: 12px; background: var(--accent-color); display: inline-block; margin-left: 10px; }
+        .section-title { color: var(--title-color); font-size: 18px; font-weight: 900; margin: 15px 0 10px; display: flex; align-items: center; border-bottom: 1px solid #000; }
+        .section-title::before { content: ""; width: 8px; height: 8px; background: var(--accent-color); display: inline-block; margin-left: 8px; }
 
-        .step-item { background: #f9f9f9; padding: 18px; border-radius: 12px; margin-bottom: 15px; border-right: 5px solid var(--primary-color); border: 1px solid #ddd; }
-        .step-item h4 { margin: 0 0 8px 0; color: var(--primary-color); font-size: 18px; font-weight: 900; }
-        .step-item p { margin: 0; font-size: 16px; color: var(--pure-black); line-height: 1.6; font-weight: 700; }
+        .step-item { background: #f9f9f9; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-right: 4px solid var(--primary-color); border: 1px solid #ddd; border-right: 4px solid var(--primary-color); }
+        .step-item h4 { margin: 0 0 5px 0; color: var(--primary-color); font-size: 16px; font-weight: 900; }
+        .step-item p { margin: 0; font-size: 14px; color: var(--pure-black); font-weight: 700; }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 35px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
         .stat-card { 
-            background: var(--primary-color); color: white; padding: 20px 5px; border-radius: 15px; 
-            text-align: center; border-bottom: 5px solid var(--accent-color);
+            background: var(--primary-color); color: white; padding: 15px 5px; border-radius: 10px; 
+            text-align: center; border-bottom: 4px solid var(--accent-color);
         }
-        .stat-card h3 { font-size: 14px; margin: 0; font-weight: 900; }
-        .stat-card p { font-size: 24px; font-weight: 900; margin: 8px 0 0; color: var(--accent-color); }
+        .stat-card h3 { font-size: 11px; margin: 0; font-weight: 900; }
+        .stat-card p { font-size: 18px; font-weight: 900; margin: 5px 0 0; color: var(--accent-color); }
 
-        .chart-container { background: #fafafa; padding: 20px; border-radius: 20px; height: 350px; border: 2px solid #eee; margin-bottom: 40px; }
+        .chart-container { background: #fafafa; padding: 10px; border-radius: 15px; height: 280px; border: 1.5px solid #eee; margin-bottom: 20px; }
 
-        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .upload-box { 
-            height: 220px; border: 2px dashed #000; border-radius: 20px; 
+            height: 160px; border: 1.5px dashed #000; border-radius: 15px; 
             display: flex; align-items: center; justify-content: center; overflow: hidden; 
-            cursor: pointer; background: #fff; position: relative;
+            cursor: pointer; background: #fff;
         }
         .upload-box img { width: 100%; height: 100%; object-fit: contain; }
-        .upload-box span { color: var(--pure-black); font-size: 13px; font-weight: 900; text-align: center; padding: 10px; }
+        .upload-box span { color: var(--pure-black); font-size: 11px; font-weight: 900; text-align: center; }
 
-        .signature-section { display: flex; justify-content: space-between; margin-top: 60px; padding: 30px; background: #fdfdfd; border-radius: 15px; border: 2px solid #eee; }
+        .signature-section { display: flex; justify-content: space-between; margin-top: 40px; padding: 20px; background: #fdfdfd; border-radius: 10px; border: 1.5px solid #eee; }
         .sig-box { text-align: center; width: 45%; }
-        .sig-line { border-top: 3px solid var(--primary-color); margin-top: 45px; padding-top: 10px; font-weight: 900; color: var(--pure-black); font-size: 19px; }
+        .sig-line { border-top: 2.5px solid var(--primary-color); margin-top: 35px; padding-top: 8px; font-weight: 900; color: var(--pure-black); font-size: 16px; }
 
-        .footer-note { text-align: center; font-size: 13px; color: var(--pure-black); font-weight: 900; margin-top: 40px; padding-bottom: 10px; }
+        .footer-note { text-align: center; font-size: 12px; color: var(--pure-black); font-weight: 900; margin-top: 20px; }
 
-        .no-print { text-align: center; padding: 30px; background: #e9ecef; position: sticky; bottom: 0; z-index: 100; }
+        .no-print { text-align: center; padding: 20px; background: #e9ecef; position: fixed; bottom: 0; width: 100%; z-index: 1000; }
         .btn-pdf { 
-            background: linear-gradient(45deg, #000, var(--title-color)); color: white; padding: 18px 50px; 
-            border: none; border-radius: 50px; font-weight: 900; cursor: pointer; font-size: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            background: #000; color: white; padding: 15px 40px; 
+            border: none; border-radius: 50px; font-weight: 900; cursor: pointer; font-size: 18px; border: 2px solid var(--accent-color);
         }
     </style>
 </head>
@@ -96,7 +97,7 @@
             <div class="header-text">
                 <h1>تقرير إنجاز مبادرة التميز الرقمي</h1>
                 <p class="author-name">الأستاذ: عبد العزيز الفيفي</p>
-                <p style="color: #000; font-weight: 900; margin: 0;">ثانوية الأمير عبدالمجيد | الرياض</p>
+                <p style="color: #000; font-weight: 900; margin: 0; font-size: 14px;">ثانوية الأمير عبدالمجيد | الرياض</p>
             </div>
             <div class="qr-wrapper">
                 <div id="qrcode"></div>
@@ -105,10 +106,10 @@
         </div>
 
         <div class="director-message">
-            <div class="section-title">سعادة مدير المدرسة المحترم،،</div>
+            <div class="section-title" style="border:none; margin:0 0 10px;">سعادة مدير المدرسة المحترم،،</div>
             <p style="margin: 0; text-align: justify;">
                 أضع بين أيديكم ثمرة الجهد الميداني والتقني لطلابنا؛ فبالتوازي مع شرح مهارات القدرات (القسم اللفظي) داخل الفصل الدراسي، نعلن بحمد الله عن إتمام شرح وتدريب القسم الثاني من المنهج بنجاح. 
-                ولضمان ديمومة التعلم، أطلقنا هذه المنصة الرقمية  لتكون جسراً يربط الطالب بالمراجعة المستمرة والتدريب المكثف، وتهيئتهم للاستعداد الأمثل وتحقيق أعلى الدرجات بإذن الله.
+                ولضمان ديمومة التعلم، أطلقنا هذه المنصة الرقمية لتكون جسراً يربط الطالب بالمراجعة المستمرة والتدريب المكثف، وتهيئتهم للاستعداد الأمثل وتحقيق أعلى الدرجات بإذن الله.
             </p>
         </div>
 
@@ -146,11 +147,11 @@
         </div>
 
         <div class="section-title">شواهد المنصة والتدريب الميداني</div>
-        <div class="gallery">
-            <div class="upload-box" onclick="trig(1)"><input type="file" id="f1" hidden accept="image/*" onchange="pre(this,1)"><span id="t1">📷 صورة واجهة المنصة الرقمية</span><img id="i1" style="display:none"></div>
-            <div class="upload-box" onclick="trig(2)"><input type="file" id="f2" hidden accept="image/*" onchange="pre(this,2)"><span id="t2">📷 صورة لوحة الصدارة والنتائج</span><img id="i2" style="display:none"></div>
-            <div class="upload-box" onclick="trig(3)"><input type="file" id="f3" hidden accept="image/*" onchange="pre(this,3)"><span id="t3">📷 صورة نماذج التدريب اليومي</span><img id="i3" style="display:none"></div>
-            <div class="upload-box" onclick="trig(4)"><input type="file" id="f4" hidden accept="image/*" onchange="pre(this,4)"><span id="t4">📷 صورة تفاعل الطلاب الميداني</span><img id="i4" style="display:none"></div>
+        <div class="gallery" style="margin-top:10px;">
+            <div class="upload-box" onclick="trig(1)"><input type="file" id="f1" hidden accept="image/*" onchange="pre(this,1)"><span id="t1">📷 صورة واجهة المنصة</span><img id="i1" style="display:none"></div>
+            <div class="upload-box" onclick="trig(2)"><input type="file" id="f2" hidden accept="image/*" onchange="pre(this,2)"><span id="t2">📷 صورة لوحة الصدارة</span><img id="i2" style="display:none"></div>
+            <div class="upload-box" onclick="trig(3)"><input type="file" id="f3" hidden accept="image/*" onchange="pre(this,3)"><span id="t3">📷 صورة نماذج التدريب</span><img id="i3" style="display:none"></div>
+            <div class="upload-box" onclick="trig(4)"><input type="file" id="f4" hidden accept="image/*" onchange="pre(this,4)"><span id="t4">📷 صورة تفاعل الطلاب</span><img id="i4" style="display:none"></div>
         </div>
 
         <div class="signature-section">
@@ -168,15 +169,11 @@
 </div>
 
 <div class="no-print">
-    <button class="btn-pdf" onclick="saveLuxPDF()">📥 استخراج التقرير الحاد (أسود غامق PDF)</button>
+    <button class="btn-pdf" onclick="saveLuxPDF()">📥 استخراج التقرير (صفحتان بالضبط PDF)</button>
 </div>
 
 <script>
-    new QRCode(document.getElementById("qrcode"), { 
-        text: "https://aztlaztl1512-bit.github.io/MAHME-/", 
-        width: 85, height: 85,
-        colorDark : "#000000"
-    });
+    new QRCode(document.getElementById("qrcode"), { text: "https://aztlaztl1512-bit.github.io/MAHME-/", width: 70, height: 70, colorDark : "#000000" });
 
     function trig(id) { document.getElementById('f' + id).click(); }
     function pre(input, id) {
@@ -184,8 +181,7 @@
             var r = new FileReader();
             r.onload = function(e) { 
                 const img = document.getElementById('i' + id); 
-                img.src = e.target.result; 
-                img.style.display = 'block'; 
+                img.src = e.target.result; img.style.display = 'block'; 
                 document.getElementById('t' + id).style.display = 'none'; 
             }
             r.readAsDataURL(input.files[0]);
@@ -196,24 +192,17 @@
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الحالي', 'المستهدف'],
+            labels: ['1', '2', '3', 'الحالي', 'المستهدف'],
             datasets: [{ 
-                label: 'معدل تطور التحصيل', 
-                data: [15, 40, 65, 90, 100], 
-                borderColor: '#1a3066', 
-                backgroundColor: 'rgba(0, 0, 0, 0.05)', 
-                fill: true, tension: 0.4, borderWidth: 5,
-                pointRadius: 7, pointBackgroundColor: '#d4af37'
+                label: 'مستوى التحصيل', data: [15, 40, 65, 90, 100], 
+                borderColor: '#1a3066', backgroundColor: 'rgba(0, 0, 0, 0.05)', 
+                fill: true, tension: 0.4, borderWidth: 4, pointRadius: 5
             }]
         },
         options: { 
-            responsive: true, 
-            maintainAspectRatio: false,
-            plugins: { legend: { labels: { color: '#000', font: { family: 'Tajawal', size: 14, weight: 'bold' } } } },
-            scales: {
-                x: { ticks: { color: '#000', font: { weight: 'bold' } } },
-                y: { ticks: { color: '#000', font: { weight: 'bold' } } }
-            }
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#000', font: { weight: 'bold' } } } },
+            scales: { x: { ticks: { color: '#000', font: { weight: 'bold' } } }, y: { ticks: { color: '#000', font: { weight: 'bold' } } } }
         }
     });
 
@@ -221,13 +210,18 @@
         const element = document.getElementById('report-content');
         const opt = {
             margin: 0,
-            filename: 'تقرير_الفيفي_طباعة_حادة.pdf',
+            filename: 'تقرير_الفيفي_النهائي.pdf',
             image: { type: 'jpeg', quality: 1.0 },
-            html2canvas: { scale: 3, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: 'css' }
+            html2canvas: { scale: 2, useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
-        html2pdf().set(opt).from(element).save();
+        // تحسين لضمان صفحتين فقط
+        html2pdf().from(element).set(opt).toPdf().get('pdf').then(function (pdf) {
+            var totalPages = pdf.internal.getNumberOfPages();
+            for (var i = totalPages; i > 2; i--) {
+                pdf.deletePage(i); // حذف أي صفحات زائدة ناتجة عن خطأ في التفسير
+            }
+        }).save();
     }
 </script>
 
