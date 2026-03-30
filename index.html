@@ -15,15 +15,16 @@
             --primary-color: #1a3066; 
             --accent-color: #d4af37;  
             --title-color: #800000;   
+            --pure-black: #000000; /* أسود حاد للطباعة */
         }
 
-        body { font-family: 'Tajawal', sans-serif; background-color: #e9ecef; margin: 0; padding: 0; color: #333; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #e9ecef; margin: 0; padding: 0; color: var(--pure-black); }
         
         #report-content { width: 800px; margin: auto; }
 
         .page {
             width: 800px;
-            min-height: 1120px; /* طول صفحة A4 تقريباً */
+            min-height: 1120px;
             padding: 50px;
             background: white;
             box-sizing: border-box;
@@ -31,57 +32,58 @@
             border-bottom: 15px solid var(--accent-color);
             margin-bottom: 30px;
             position: relative;
-            page-break-after: always; /* إجبار المكتبة على بدء صفحة جديدة بعدها */
+            page-break-after: always;
         }
 
-        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 3px double #eee; padding-bottom: 20px; }
+        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 3px double #000; padding-bottom: 20px; }
         h1 { color: var(--title-color); font-weight: 900; font-size: 26px; margin: 0; }
-        .author-name { color: var(--primary-color); font-size: 20px; font-weight: 700; margin-top: 5px; }
+        .author-name { color: var(--primary-color); font-size: 20px; font-weight: 900; margin-top: 5px; }
 
         .qr-wrapper { text-align: center; border: 2px solid var(--accent-color); padding: 10px; border-radius: 12px; background: #fff; }
-        .qr-wrapper p { font-size: 11px; margin-top: 5px; font-weight: bold; color: var(--primary-color); }
+        .qr-wrapper p { font-size: 11px; margin-top: 5px; font-weight: 900; color: var(--primary-color); }
 
         .director-message { 
             background: #fffcf0; border-right: 10px solid var(--title-color); 
-            padding: 30px; border-radius: 15px; margin-bottom: 30px; line-height: 1.9; font-size: 16px;
+            padding: 30px; border-radius: 15px; margin-bottom: 30px; line-height: 1.9; font-size: 17px;
+            color: var(--pure-black); font-weight: 700; /* خط عريض وواضح */
         }
 
-        .section-title { color: var(--title-color); font-size: 22px; font-weight: 900; margin: 30px 0 20px; display: flex; align-items: center; }
+        .section-title { color: var(--title-color); font-size: 22px; font-weight: 900; margin: 30px 0 20px; display: flex; align-items: center; border-bottom: 1px solid #000; padding-bottom: 5px; }
         .section-title::before { content: ""; width: 12px; height: 12px; background: var(--accent-color); display: inline-block; margin-left: 10px; }
 
-        .step-item { background: #f9f9f9; padding: 18px; border-radius: 12px; margin-bottom: 15px; border-right: 5px solid var(--primary-color); }
-        .step-item h4 { margin: 0 0 8px 0; color: var(--primary-color); font-size: 18px; }
-        .step-item p { margin: 0; font-size: 15px; color: #444; line-height: 1.6; }
+        .step-item { background: #f9f9f9; padding: 18px; border-radius: 12px; margin-bottom: 15px; border-right: 5px solid var(--primary-color); border: 1px solid #ddd; }
+        .step-item h4 { margin: 0 0 8px 0; color: var(--primary-color); font-size: 18px; font-weight: 900; }
+        .step-item p { margin: 0; font-size: 16px; color: var(--pure-black); line-height: 1.6; font-weight: 700; }
 
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 35px; }
         .stat-card { 
             background: var(--primary-color); color: white; padding: 20px 5px; border-radius: 15px; 
             text-align: center; border-bottom: 5px solid var(--accent-color);
         }
-        .stat-card h3 { font-size: 14px; margin: 0; opacity: 0.9; }
+        .stat-card h3 { font-size: 14px; margin: 0; font-weight: 900; }
         .stat-card p { font-size: 24px; font-weight: 900; margin: 8px 0 0; color: var(--accent-color); }
 
-        .chart-container { background: #fafafa; padding: 20px; border-radius: 20px; height: 350px; border: 1px solid #eee; margin-bottom: 40px; }
+        .chart-container { background: #fafafa; padding: 20px; border-radius: 20px; height: 350px; border: 2px solid #eee; margin-bottom: 40px; }
 
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .upload-box { 
-            height: 220px; border: 2px dashed #ccc; border-radius: 20px; 
+            height: 220px; border: 2px dashed #000; border-radius: 20px; 
             display: flex; align-items: center; justify-content: center; overflow: hidden; 
             cursor: pointer; background: #fff; position: relative;
         }
         .upload-box img { width: 100%; height: 100%; object-fit: contain; }
-        .upload-box span { color: #888; font-size: 13px; font-weight: bold; text-align: center; padding: 10px; }
+        .upload-box span { color: var(--pure-black); font-size: 13px; font-weight: 900; text-align: center; padding: 10px; }
 
-        .signature-section { display: flex; justify-content: space-between; margin-top: 60px; padding: 30px; background: #fdfdfd; border-radius: 15px; border: 1px solid #eee; }
+        .signature-section { display: flex; justify-content: space-between; margin-top: 60px; padding: 30px; background: #fdfdfd; border-radius: 15px; border: 2px solid #eee; }
         .sig-box { text-align: center; width: 45%; }
-        .sig-line { border-top: 2px solid var(--primary-color); margin-top: 45px; padding-top: 10px; font-weight: 900; color: var(--primary-color); font-size: 18px; }
+        .sig-line { border-top: 3px solid var(--primary-color); margin-top: 45px; padding-top: 10px; font-weight: 900; color: var(--pure-black); font-size: 19px; }
 
-        .footer-note { text-align: center; font-size: 12px; color: #aaa; margin-top: 40px; padding-bottom: 10px; }
+        .footer-note { text-align: center; font-size: 13px; color: var(--pure-black); font-weight: 900; margin-top: 40px; padding-bottom: 10px; }
 
         .no-print { text-align: center; padding: 30px; background: #e9ecef; position: sticky; bottom: 0; z-index: 100; }
         .btn-pdf { 
-            background: linear-gradient(45deg, var(--title-color), #b00000); color: white; padding: 18px 50px; 
-            border: none; border-radius: 50px; font-weight: 900; cursor: pointer; font-size: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #000, var(--title-color)); color: white; padding: 18px 50px; 
+            border: none; border-radius: 50px; font-weight: 900; cursor: pointer; font-size: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -94,7 +96,7 @@
             <div class="header-text">
                 <h1>تقرير إنجاز مبادرة التميز الرقمي</h1>
                 <p class="author-name">الأستاذ: عبد العزيز الفيفي</p>
-                <p style="color: #666; font-weight: bold; margin: 0;">ثانوية الأمير عبدالمجيد | الرياض</p>
+                <p style="color: #000; font-weight: 900; margin: 0;">ثانوية الأمير عبدالمجيد | الرياض</p>
             </div>
             <div class="qr-wrapper">
                 <div id="qrcode"></div>
@@ -105,8 +107,8 @@
         <div class="director-message">
             <div class="section-title">سعادة مدير المدرسة المحترم،،</div>
             <p style="margin: 0; text-align: justify;">
-                أضع بين أيديكم ثمرة الجهد الميداني والتقني لطلابنا؛ فبالتوازي مع شرح مهارات **القدرات (القسم اللفظي)** داخل الفصل الدراسي، نعلن بحمد الله عن إتمام شرح وتدريب **القسم الثاني** من المنهج بنجاح. 
-                ولضمان ديمومة التعلم، أطلقنا هذه **المنصة الرقمية** لتكون جسراً يربط الطالب بالمراجعة المستمرة والتدريب المكثف، وتهيئتهم **للاستعداد الأمثل** وتحقيق أعلى الدرجات بإذن الله.
+                أضع بين أيديكم ثمرة الجهد الميداني والتقني لطلابنا؛ فبالتوازي مع شرح مهارات القدرات (القسم اللفظي) داخل الفصل الدراسي، نعلن بحمد الله عن إتمام شرح وتدريب القسم الثاني من المنهج بنجاح. 
+                ولضمان ديمومة التعلم، أطلقنا هذه المنصة الرقمية  لتكون جسراً يربط الطالب بالمراجعة المستمرة والتدريب المكثف، وتهيئتهم للاستعداد الأمثل وتحقيق أعلى الدرجات بإذن الله.
             </p>
         </div>
 
@@ -153,11 +155,11 @@
 
         <div class="signature-section">
             <div class="sig-box">
-                <p style="margin:0; font-weight:bold;">معد التقرير</p>
+                <p style="margin:0; font-weight:900;">معد التقرير</p>
                 <div class="sig-line">أ/ عبد العزيز الفيفي</div>
             </div>
             <div class="sig-box">
-                <p style="margin:0; font-weight:bold;">يعتمد،، مدير المدرسة</p>
+                <p style="margin:0; font-weight:900;">يعتمد،، مدير المدرسة</p>
                 <div class="sig-line">د/ عبدالله بن ظافر الشهري</div>
             </div>
         </div>
@@ -166,18 +168,16 @@
 </div>
 
 <div class="no-print">
-    <button class="btn-pdf" onclick="saveLuxPDF()">📥 استخراج التقرير الفاخر (صفحتان PDF)</button>
+    <button class="btn-pdf" onclick="saveLuxPDF()">📥 استخراج التقرير الحاد (أسود غامق PDF)</button>
 </div>
 
 <script>
-    // توليد الـ QR Code
     new QRCode(document.getElementById("qrcode"), { 
         text: "https://aztlaztl1512-bit.github.io/MAHME-/", 
         width: 85, height: 85,
-        colorDark : "#1a3066"
+        colorDark : "#000000"
     });
 
-    // وظائف رفع ومعاينة الصور
     function trig(id) { document.getElementById('f' + id).click(); }
     function pre(input, id) {
         if (input.files && input.files[0]) {
@@ -192,38 +192,40 @@
         }
     }
 
-    // إعداد الرسم البياني
     const ctx = document.getElementById('luxChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'المرحلة الحالية', 'المستهدف'],
+            labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الحالي', 'المستهدف'],
             datasets: [{ 
-                label: 'معدل تطور التحصيل الدراسي', 
+                label: 'معدل تطور التحصيل', 
                 data: [15, 40, 65, 90, 100], 
-                borderColor: '#d4af37', 
-                backgroundColor: 'rgba(26, 48, 102, 0.1)', 
-                fill: true, tension: 0.4, borderWidth: 4,
-                pointRadius: 6, pointBackgroundColor: '#1a3066'
+                borderColor: '#1a3066', 
+                backgroundColor: 'rgba(0, 0, 0, 0.05)', 
+                fill: true, tension: 0.4, borderWidth: 5,
+                pointRadius: 7, pointBackgroundColor: '#d4af37'
             }]
         },
         options: { 
             responsive: true, 
             maintainAspectRatio: false,
-            plugins: { legend: { labels: { font: { family: 'Tajawal', size: 14 } } } }
+            plugins: { legend: { labels: { color: '#000', font: { family: 'Tajawal', size: 14, weight: 'bold' } } } },
+            scales: {
+                x: { ticks: { color: '#000', font: { weight: 'bold' } } },
+                y: { ticks: { color: '#000', font: { weight: 'bold' } } }
+            }
         }
     });
 
-    // وظيفة حفظ الـ PDF بصفحتين
     function saveLuxPDF() {
         const element = document.getElementById('report-content');
         const opt = {
             margin: 0,
-            filename: 'تقرير_التميز_الرقمي_الفيفي.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+            filename: 'تقرير_الفيفي_طباعة_حادة.pdf',
+            image: { type: 'jpeg', quality: 1.0 },
+            html2canvas: { scale: 3, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            pagebreak: { mode: 'css' }
         };
         html2pdf().set(opt).from(element).save();
     }
