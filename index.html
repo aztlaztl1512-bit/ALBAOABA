@@ -2,216 +2,217 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تقرير التميز الرقمي - الرياض - أ/ عبدالعزيز الفيفي</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
         
         :root {
-            --primary-color: #1a3066; 
-            --accent-color: #d4af37;  
-            --title-color: #800000;   
-            --pure-black: #000000;
+            --primary: #1a3066; 
+            --accent: #d4af37;  
+            --title: #800000;   
+            --black: #000000;
         }
 
-        body { font-family: 'Tajawal', sans-serif; background-color: #525659; margin: 0; padding: 0; color: var(--pure-black); }
+        /* تنسيق العرض على الشاشة */
+        body { background: #525659; font-family: 'Tajawal', sans-serif; margin: 0; padding: 20px; }
         
-        /* إعداد الحاوية الأساسية بمقاسات A4 دولية */
-        #report-content { width: 210mm; margin: 20px auto; background: #525659; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .report-wrapper { width: 210mm; margin: 0 auto; }
 
         .page {
             width: 210mm;
-            height: 297mm; /* ارتفاع A4 بالضبط */
-            padding: 15mm;
+            height: 296mm; /* مقاس A4 دقيق */
             background: white;
+            padding: 15mm;
             box-sizing: border-box;
-            border-top: 15mm solid var(--primary-color);
-            border-bottom: 10mm solid var(--accent-color);
+            border-top: 15mm solid var(--primary);
+            border-bottom: 10mm solid var(--accent);
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            margin-bottom: 10mm;
+            page-break-after: always;
         }
 
-        /* لضمان كسر الصفحة في الـ PDF */
-        .page-break { page-break-after: always; }
+        /* تحسين الوضوح والخطوط للطباعة */
+        h1 { color: var(--title); font-weight: 900; font-size: 26px; margin: 0; }
+        .author-info { color: var(--primary); font-size: 19px; font-weight: 900; margin-top: 5px; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px double var(--black); padding-bottom: 15px; margin-bottom: 25px; }
+        
+        .qr-box { text-align: center; border: 2px solid var(--accent); padding: 5px; border-radius: 10px; background: #fff; }
+        .qr-box p { font-size: 10px; font-weight: 900; margin: 5px 0 0; }
 
-        .header-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 3px double #000; padding-bottom: 15px; }
-        h1 { color: var(--title-color); font-weight: 900; font-size: 24px; margin: 0; }
-        .author-name { color: var(--primary-color); font-size: 19px; font-weight: 900; }
-
-        .qr-wrapper { text-align: center; border: 2px solid var(--accent-color); padding: 5px; border-radius: 10px; background: #fff; width: 85px; }
-        .qr-wrapper p { font-size: 10px; margin-top: 5px; font-weight: 900; color: var(--primary-color); }
-
-        .director-message { 
-            background: #fffcf0; border-right: 10px solid var(--title-color); 
-            padding: 20px; border-radius: 12px; margin-bottom: 25px; line-height: 1.8; font-size: 16px;
-            color: var(--pure-black); font-weight: 700; border: 1px solid #ddd; border-right: 10px solid var(--title-color);
+        .message-box { 
+            background: #fffcf0; border-right: 10px solid var(--title); padding: 20px; 
+            border-radius: 10px; margin-bottom: 30px; border-left: 1px solid #ddd; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
         }
+        .message-box p { font-size: 17px; line-height: 1.8; color: var(--black); font-weight: 700; text-align: justify; margin: 0; }
 
-        .section-title { color: var(--title-color); font-size: 20px; font-weight: 900; margin: 15px 0 12px; display: flex; align-items: center; border-bottom: 1px solid #000; padding-bottom: 5px; }
-        .section-title::before { content: ""; width: 10px; height: 10px; background: var(--accent-color); display: inline-block; margin-left: 10px; }
+        .section-title { color: var(--title); font-size: 21px; font-weight: 900; border-bottom: 2px solid var(--black); padding-bottom: 5px; margin: 20px 0 15px; display: flex; align-items: center; }
+        .section-title::before { content: ""; width: 10px; height: 10px; background: var(--accent); margin-left: 10px; }
 
-        .step-item { background: #f9f9f9; padding: 12px; border-radius: 10px; margin-bottom: 12px; border-right: 5px solid var(--primary-color); border: 1px solid #ddd; border-right: 5px solid var(--primary-color); }
-        .step-item h4 { margin: 0 0 5px 0; color: var(--primary-color); font-size: 17px; font-weight: 900; }
-        .step-item p { margin: 0; font-size: 15px; color: var(--pure-black); font-weight: 700; }
+        .step { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 12px; border-right: 5px solid var(--primary); border: 1px solid #ddd; border-right: 5px solid var(--primary); }
+        .step h4 { margin: 0 0 5px; color: var(--primary); font-size: 18px; font-weight: 900; }
+        .step p { margin: 0; font-size: 15px; color: var(--black); font-weight: 700; }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: auto; padding-bottom: 10mm; }
-        .stat-card { 
-            background: var(--primary-color); color: white; padding: 18px 5px; border-radius: 12px; 
-            text-align: center; border-bottom: 5px solid var(--accent-color);
-        }
-        .stat-card h3 { font-size: 12px; margin: 0; font-weight: 900; }
-        .stat-card p { font-size: 20px; font-weight: 900; margin: 5px 0 0; color: var(--accent-color); }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: auto; padding-bottom: 10mm; }
+        .card { background: var(--primary); color: white; text-align: center; padding: 15px 5px; border-radius: 10px; border-bottom: 5px solid var(--accent); }
+        .card h3 { font-size: 13px; margin: 0; font-weight: 900; }
+        .card p { font-size: 20px; font-weight: 900; margin: 5px 0 0; color: var(--accent); }
 
-        .chart-container { background: #fafafa; padding: 15px; border-radius: 20px; height: 350px; border: 2px solid #eee; margin-bottom: 25px; }
+        .chart-box { background: #fafafa; border: 2px solid #eee; border-radius: 15px; height: 350px; padding: 15px; margin-bottom: 25px; }
 
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .upload-box { 
-            height: 180px; border: 2px dashed #000; border-radius: 20px; 
-            display: flex; align-items: center; justify-content: center; overflow: hidden; 
-            cursor: pointer; background: #fff;
+        .upload { height: 180px; border: 2px dashed var(--black); border-radius: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #fff; overflow: hidden; }
+        .upload img { width: 100%; height: 100%; object-fit: contain; }
+        .upload span { font-weight: 900; font-size: 13px; color: var(--black); }
+
+        .signatures { display: flex; justify-content: space-between; margin-top: auto; padding: 25px; border: 2px solid #eee; border-radius: 15px; margin-bottom: 5mm; background: #fdfdfd; }
+        .sig-item { text-align: center; width: 45%; }
+        .sig-line { border-top: 3px solid var(--primary); margin-top: 40px; padding-top: 10px; font-weight: 900; font-size: 18px; color: var(--black); }
+
+        .footer { text-align: center; font-weight: 900; font-size: 14px; padding-bottom: 5mm; }
+
+        /* أزرار التحكم */
+        .controls { position: fixed; top: 20px; left: 20px; z-index: 1000; background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+        .btn { background: #000; color: #fff; border: 2px solid var(--accent); padding: 12px 25px; font-weight: 900; cursor: pointer; border-radius: 5px; font-family: 'Tajawal'; }
+
+        /* إعدادات الطباعة الحقيقية */
+        @media print {
+            body { background: none; padding: 0; }
+            .report-wrapper { width: 210mm; margin: 0; }
+            .page { margin: 0; box-shadow: none; border-top: 15mm solid var(--primary) !important; -webkit-print-color-adjust: exact; }
+            .controls { display: none; }
         }
-        .upload-box img { width: 100%; height: 100%; object-fit: contain; }
-        .upload-box span { color: var(--pure-black); font-size: 13px; font-weight: 900; text-align: center; }
-
-        .signature-section { display: flex; justify-content: space-between; margin-top: auto; padding: 25px; background: #fdfdfd; border-radius: 15px; border: 2px solid #eee; margin-bottom: 5mm; }
-        .sig-box { text-align: center; width: 45%; }
-        .sig-line { border-top: 3px solid var(--primary-color); margin-top: 40px; padding-top: 10px; font-weight: 900; color: var(--pure-black); font-size: 18px; }
-
-        .footer-note { text-align: center; font-size: 13px; color: var(--pure-black); font-weight: 900; padding-bottom: 5mm; }
-
-        /* أزرار التحكم - لا تظهر في الطباعة */
-        .no-print { text-align: center; padding: 20px; position: fixed; top: 20px; left: 20px; z-index: 1000; }
-        .btn-pdf { 
-            background: #000; color: white; padding: 15px 30px; 
-            border: 2px solid var(--accent-color); border-radius: 8px; font-weight: 900; cursor: pointer; font-size: 16px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        @media print { .no-print { display: none; } }
     </style>
 </head>
 <body>
 
-<div class="no-print">
-    <button class="btn-pdf" onclick="saveLuxPDF()">📥 استخراج التقرير الرسمي (PDF)</button>
-    <p style="color: white; font-size: 12px; margin-top: 10px;">يفضل استخدام متصفح Chrome</p>
+<div class="controls">
+    <button class="btn" onclick="window.print()">📥 استخراج التقرير PDF</button>
+    <p style="font-size: 11px; margin-top: 8px;">1. ارفع الصور أولاً<br>2. اختر حفظ بتنسيق PDF<br>3. الهوامش: بلا (None)</p>
 </div>
 
-<div id="report-content">
+<div class="report-wrapper">
     <!-- الصفحة الأولى -->
-    <div class="page page-break">
-        <div class="header-section">
-            <div class="header-text">
+    <div class="page">
+        <div class="header">
+            <div>
                 <h1>تقرير إنجاز مبادرة التميز الرقمي</h1>
-                <p class="author-name">الأستاذ: عبد العزيز الفيفي</p>
-                <p style="color: #000; font-weight: 900; margin: 0; font-size: 15px;">ثانوية الأمير عبدالمجيد | الرياض</p>
+                <div class="author-info">الأستاذ: عبد العزيز الفيفي</div>
+                <div style="font-weight: 900; font-size: 15px; margin-top: 3px;">ثانوية الأمير عبدالمجيد | الرياض</div>
             </div>
-            <div class="qr-wrapper">
+            <div class="qr-box">
                 <div id="qrcode"></div>
                 <p>رابط المنصة</p>
             </div>
         </div>
 
-        <div class="director-message">
-            <div class="section-title" style="border:none; margin:0 0 10px;">سعادة مدير المدرسة المحترم،،</div>
-            <p style="margin: 0; text-align: justify;">
+        <div class="message-box">
+            <p>
                 أضع بين أيديكم ثمرة الجهد الميداني والتقني لطلابنا؛ فبالتوازي مع شرح مهارات القدرات (القسم اللفظي) داخل الفصل الدراسي، نعلن بحمد الله عن إتمام شرح وتدريب القسم الثاني من المنهج بنجاح. 
                 ولضمان ديمومة التعلم، أطلقنا هذه المنصة الرقمية لتكون جسراً يربط الطالب بالمراجعة المستمرة والتدريب المكثف، وتهيئتهم للاستعداد الأمثل وتحقيق أعلى الدرجات بإذن الله.
             </p>
         </div>
 
         <div class="section-title">تفاصيل الإنجاز والمسار التقني</div>
-        <div class="step-item">
+        <div class="step">
             <h4>1️⃣ حوكمة المحتوى الرقمي</h4>
             <p>إعداد (15) نموذجاً تدريبياً لكل مهارة فرعية، مع دمج نظام التصحيح التلقائي لضمان سرعة التعلم.</p>
         </div>
-        <div class="step-item">
+        <div class="step">
             <h4>2️⃣ مهارات استيعاب المقروء</h4>
-            <p>تفعيل نماذج النصوص المتنوعة (قصيرة، متوسطة، طويلة) لتدريب الطلاب على استراتيجيات الحل السريع.</p>
+            <p>تفعيل نماذج النصوص المتنوعة لتدريب الطلاب على استراتيجيات الحل السريع والتحليل الدقيق.</p>
         </div>
-        <div class="step-item">
+        <div class="step">
             <h4>3️⃣ الدعم التعليمي الذكي</h4>
-            <p>تضمين تلميحات ذكية وشروحات مختصرة لكل سؤال تظهر للطالب عند الخطأ لتعزيز الفهم الذاتي.</p>
+            <p>تضمين تلميحات ذكية وشروحات مختصرة لكل سؤال تظهر للطالب لتعزيز الفهم الذاتي.</p>
         </div>
-        <div class="step-item">
+        <div class="step">
             <h4>4️⃣ مؤشرات الأداء اللحظية</h4>
-            <p>نظام رصد النتائج الفورية الذي ساعد في قياس مستوى تقدم الطلاب بشكل يومي ودقيق.</p>
+            <p>نظام رصد النتائج الفورية الذي ساعد في قياس مستوى تقدم الطلاب بشكل يومي.</p>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card"><h3>👤 المستفيدون</h3><p>135 طالباً</p></div>
-            <div class="stat-card"><h3>📊 نسبة الإنجاز</h3><p>90%</p></div>
-            <div class="stat-card"><h3>📂 بنك الأسئلة</h3><p>120 نموذج</p></div>
-            <div class="stat-card"><h3>⚡ التحديث</h3><p>يومي</p></div>
+        <div class="stats">
+            <div class="card"><h3>المستفيدون</h3><p>135 طالباً</p></div>
+            <div class="card"><h3>نسبة الإنجاز</h3><p>90%</p></div>
+            <div class="card"><h3>بنك الأسئلة</h3><p>120 نموذج</p></div>
+            <div class="card"><h3>التحديث</h3><p>يومي</p></div>
         </div>
     </div>
 
     <!-- الصفحة الثانية -->
     <div class="page">
         <div class="section-title">تحليل نمو الأداء والتحصيل الرقمي</div>
-        <div class="chart-container">
-            <canvas id="luxChart"></canvas>
+        <div class="chart-box">
+            <canvas id="myChart"></canvas>
         </div>
 
         <div class="section-title">شواهد المنصة والتدريب الميداني</div>
         <div class="gallery">
-            <div class="upload-box" onclick="trig(1)"><input type="file" id="f1" hidden accept="image/*" onchange="pre(this,1)"><span id="t1">📷 صورة واجهة المنصة الرقمية</span><img id="i1" style="display:none"></div>
-            <div class="upload-box" onclick="trig(2)"><input type="file" id="f2" hidden accept="image/*" onchange="pre(this,2)"><span id="t2">📷 صورة لوحة صدارة الطلاب</span><img id="i2" style="display:none"></div>
-            <div class="upload-box" onclick="trig(3)"><input type="file" id="f3" hidden accept="image/*" onchange="pre(this,3)"><span id="t3">📷 صورة نماذج التدريب اليومي</span><img id="i3" style="display:none"></div>
-            <div class="upload-box" onclick="trig(4)"><input type="file" id="f4" hidden accept="image/*" onchange="pre(this,4)"><span id="t4">📷 صورة تفاعل الطلاب الميداني</span><img id="i4" style="display:none"></div>
+            <div class="upload" onclick="trig(1)"><input type="file" id="f1" hidden onchange="pre(this,1)"><span id="t1">📷 واجهة المنصة</span><img id="i1" style="display:none"></div>
+            <div class="upload" onclick="trig(2)"><input type="file" id="f2" hidden onchange="pre(this,2)"><span id="t2">📷 صدارة الطلاب</span><img id="i2" style="display:none"></div>
+            <div class="upload" onclick="trig(3)"><input type="file" id="f3" hidden onchange="pre(this,3)"><span id="t3">📷 نماذج التدريب</span><img id="i3" style="display:none"></div>
+            <div class="upload" onclick="trig(4)"><input type="file" id="f4" hidden onchange="pre(this,4)"><span id="t4">📷 تفاعل الطلاب</span><img id="i4" style="display:none"></div>
         </div>
 
-        <div class="signature-section">
-            <div class="sig-box">
-                <p style="margin:0; font-weight:900;">معد التقرير</p>
+        <div class="signatures">
+            <div class="sig-item">
+                <div style="font-weight: 900;">معد التقرير</div>
                 <div class="sig-line">أ/ عبد العزيز الفيفي</div>
             </div>
-            <div class="sig-box">
-                <p style="margin:0; font-weight:900;">يعتمد،، مدير المدرسة</p>
+            <div class="sig-item">
+                <div style="font-weight: 900;">يعتمد،، مدير المدرسة</div>
                 <div class="sig-line">د/ عبدالله بن ظافر الشهري</div>
             </div>
         </div>
-        <p class="footer-note">ثانوية الأمير عبدالمجيد - الرياض - 1447هـ</p>
+        <div class="footer">ثانوية الأمير عبدالمجيد - الرياض - 1447هـ</div>
     </div>
 </div>
 
 <script>
-    // QR Code
-    new QRCode(document.getElementById("qrcode"), { text: "https://aztlaztl1512-bit.github.io/MAHME-/", width: 80, height: 80, colorDark : "#000000" });
+    // توليد الـ QR
+    new QRCode(document.getElementById("qrcode"), { 
+        text: "https://aztlaztl1512-bit.github.io/MAHME-/", 
+        width: 80, height: 80, colorDark: "#000000" 
+    });
 
-    // صور
+    // التعامل مع الصور
     function trig(id) { document.getElementById('f' + id).click(); }
     function pre(input, id) {
         if (input.files && input.files[0]) {
-            var r = new FileReader();
-            r.onload = function(e) { 
-                const img = document.getElementById('i' + id); 
-                img.src = e.target.result; img.style.display = 'block'; 
-                document.getElementById('t' + id).style.display = 'none'; 
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('i' + id);
+                img.src = e.target.result;
+                img.style.display = 'block';
+                document.getElementById('t' + id).style.display = 'none';
             }
-            r.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(input.files[0]);
         }
     }
 
     // الرسم البياني
-    const ctx = document.getElementById('luxChart').getContext('2d');
+    const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['1', '2', '3', 'الحالي', 'المستهدف'],
-            datasets: [{ 
-                label: 'تطور التحصيل الدراسي', data: [15, 40, 65, 90, 100], 
-                borderColor: '#1a3066', backgroundColor: 'rgba(0, 0, 0, 0.05)', 
+            labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الحالي', 'المستهدف'],
+            datasets: [{
+                label: 'معدل التحصيل الدراسي',
+                data: [15, 40, 65, 90, 100],
+                borderColor: '#1a3066',
+                backgroundColor: 'rgba(0,0,0,0.05)',
                 fill: true, tension: 0.4, borderWidth: 5, pointRadius: 6
             }]
         },
-        options: { 
-            responsive: true, maintainAspectRatio: false,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: { legend: { labels: { color: '#000', font: { weight: 'bold', size: 14 } } } },
             scales: {
                 x: { ticks: { color: '#000', font: { weight: 'bold' } } },
@@ -219,19 +220,6 @@
             }
         }
     });
-
-    // الحفظ الرسمي
-    function saveLuxPDF() {
-        const element = document.getElementById('report-content');
-        const opt = {
-            margin: 0,
-            filename: 'تقرير_الفيفي_الرياض_الرسمي.pdf',
-            image: { type: 'jpeg', quality: 1.0 },
-            html2canvas: { scale: 2, useCORS: true, logging: false },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save();
-    }
 </script>
 
 </body>
